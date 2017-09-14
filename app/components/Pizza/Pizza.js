@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
+import PizzaStyle from './PizzaStyle';
 
 export default class Pizza extends Component {
     constructor(props) {
@@ -77,18 +78,18 @@ export default class Pizza extends Component {
 
     render(){
         return(
-            <ListView style={{backgroundColor: 'white', flexDirection: 'column', flex:1}} dataSource={this.state.dataSource} renderRow={(rowData) =>
-                <View style={{flex: 1, width: width, flexDirection: 'row', height: 70, borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                    <View style={{flex:2, borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                        <Text style={{fontSize: 15, paddingLeft: 10, paddingTop: 10, flex: 2, justifyContent: 'center', alignItems: 'flex-start'}}>{rowData.name}</Text>
-                        <Text style={{fontSize:9, paddingLeft: 10, paddingTop: 1, flex: 2, alignItems: 'flex-end'}}>{rowData.description}</Text>
+            <ListView style={PizzaStyle.ListBaseContainer}  dataSource={this.state.dataSource} renderRow={(rowData) =>
+                <View style={PizzaStyle.ItemBaseContainer}>
+                    <View style={PizzaStyle.PizzaNameDescriptionContainer}>
+                        <Text style={PizzaStyle.PizzaName}>{rowData.name}</Text>
+                        <Text style={PizzaStyle.PizzaDescription}>{rowData.description}</Text>
                     </View>
-                    <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey', justifyContent: 'center', alignSelf: 'center'}}>
-                        <Text style={{fontSize: 10, padding: 10, flex: 2, justifyContent: 'flex-end', alignItems: 'flex-end'}}>from £{rowData.price.toFixed(2)}</Text>
+                    <View style={PizzaStyle.PizzaPriceContainer}>
+                        <Text style={PizzaStyle.PizzaPriceText}>from £{rowData.price.toFixed(2)}</Text>
                     </View>
-                    <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                        <TouchableOpacity style={{margin: 5, backgroundColor: 'red', width: 60}} onPress={() => {this.onClick(rowData)}}>
-                            <Text style={{ fontSize: 40, fontWeight: '100', color: 'white', alignSelf: 'center'}}>+</Text>
+                    <View style={PizzaStyle.PizzaAddButtonContainer}>
+                        <TouchableOpacity style={PizzaStyle.PizzaAddButton} onPress={() => {this.onClick(rowData)}}>
+                            <Text style={PizzaStyle.PizzaAddButtonText}>+</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
