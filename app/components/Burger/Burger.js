@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity, Dimensions, Modal} from 'react-native';
-const {width, height} = Dimensions.get('window');
+import styles from './BurgerStyle';
 
 export default class Burger extends Component {
     constructor(props) {
@@ -61,18 +61,18 @@ export default class Burger extends Component {
     setModalVisible(visible) { this.setState({modalVisible: visible}); }
     render(){
         return(
-            <ListView style={{backgroundColor: 'white', flexDirection: 'column', flex:1}} dataSource={this.state.dataSource} renderRow={(rowData) =>
-                <View style={{flex: 1, width: width, flexDirection: 'row', height: 70, borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                    <View style={{flex:2, borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                        <Text style={{fontSize: 15, paddingLeft: 10, paddingTop: 10, flex: 2, justifyContent: 'center', alignItems: 'flex-start'}}>{rowData.name}</Text>
-                        <Text style={{fontSize:9, paddingLeft: 10, paddingTop: 1, flex: 2, alignItems: 'flex-end'}}>{rowData.description}</Text>
+            <ListView style={styles.ListViewContainer} dataSource={this.state.dataSource} renderRow={(rowData) =>
+                <View style={styles.BurgerContainer}>
+                    <View style={styles.BurgerNameContainer}>
+                        <Text style={styles.BurgerName}>{rowData.name}</Text>
+                        <Text style={styles.BurgerDescription}>{rowData.description}</Text>
                     </View>
-                    <View style={{flex: 1, borderBottomWidth: 0.5, borderColor: 'grey', justifyContent: 'center', alignSelf: 'center'}}>
-                        <Text style={{fontSize: 10, padding: 10, flex: 2, justifyContent: 'flex-end', alignItems: 'flex-end'}}>from £{rowData.price.toFixed(2)}</Text>
+                    <View style={styles.BurgerPriceContainer}>
+                        <Text style={styles.BurgerPrice}>from £{rowData.price.toFixed(2)}</Text>
                     </View>
-                    <View style={{flex:1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', borderBottomWidth: 0.5, borderColor: 'grey'}}>
-                        <TouchableOpacity style={{margin: 5, backgroundColor: 'red', width: 60}} onPress={() => {this.setModalVisible(true)}}>
-                            <Text style={{ fontSize: 40, fontWeight: '100', color: 'white', alignSelf: 'center'}}>+</Text>
+                    <View style={styles.BurgerAddButtonContainer}>
+                        <TouchableOpacity style={styles.BurgerAddButton} onPress={() => {this.setModalVisible(true)}}>
+                            <Text style={styles.BurgerAddButtonText}>+</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
