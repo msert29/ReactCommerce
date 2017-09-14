@@ -1,0 +1,128 @@
+{
+  "type": {
+        "Pizzas": {
+          "Margarita": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Vegetarian": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Hawaiian": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Mexican": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Seafood": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Hot&Spicy": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "American Special": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Meat Mix": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          },
+          "Super Special": {
+            "Size": {
+              "9": {
+                "Price": 5.00
+              },
+              "12": {
+                "Price": 6.50
+              }
+            }
+          }
+        },
+        "Burgers": {
+          "Beef Burger": {
+            "Size": {
+              "1/4": {
+                "Price": 3.00
+              },
+              "1/2": {
+                "Price": 4.00
+              }
+            }
+          },
+          "Chicken Burger": {
+            "Size": {
+              "1/4": {
+                "Price": 3.40
+              },
+              "1/2": {
+                "Price": 5.00
+              }
+            }
+          },
+          "Veggie Burger": {
+            "Size": {
+              "1/4": {
+                "Price": 3.50
+              },
+              "1/2": {
+                "Price": 5.00
+              }
+            }
+          }
+        }
+  }
+}
