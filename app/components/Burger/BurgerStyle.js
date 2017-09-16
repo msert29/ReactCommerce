@@ -1,37 +1,35 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {width} from '../../config/constants';
-
+import {width, height, burgers} from '../../config/constants';
 module.exports = StyleSheet.create({
     ListViewContainer: {
         backgroundColor: 'white',
-        flexDirection: 'column',
-        flex:1
+        flexDirection: 'row',
+        flex:1,
     },
     BurgerContainer: {
         flex: 1,
         width: width,
         flexDirection: 'row',
-        height: 70,
         borderBottomWidth: 0.5,
-        borderColor: 'grey'
+        borderColor: 'grey',
     },
     BurgerNameContainer: {
         flex:2,
         borderBottomWidth: 0.5,
-        borderColor: 'grey'
+        borderColor: 'grey',
     },
     BurgerName: {
         flex: 2,
-        fontSize: 15,
+        fontSize: 20,
         paddingLeft: 10,
-        paddingTop: 10,
+        paddingTop: 20,
         justifyContent: 'center',
         alignItems: 'flex-start'
     },
     BurgerDescription: {
         flex: 2,
-        fontSize:9,
+        fontSize:10,
         paddingLeft: 10,
         paddingTop: 1,
         alignItems: 'flex-end'
@@ -45,8 +43,9 @@ module.exports = StyleSheet.create({
     },
     BurgerPrice: {
         flex: 2,
-        fontSize: 10,
-        padding: 10,
+        fontSize: 13,
+        paddingTop: 25,
+        paddingLeft: 10,
         justifyContent: 'flex-end',
         alignItems: 'flex-end'
     },
@@ -61,7 +60,7 @@ module.exports = StyleSheet.create({
     BurgerAddButton: {
         margin: 5,
         backgroundColor: 'red',
-        width: 60
+        width: 60,
     },
     BurgerAddButtonText: {
         fontSize: 40,

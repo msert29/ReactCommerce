@@ -1,49 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity, Dimensions, Modal} from 'react-native';
 import styles from './BurgerStyle';
+import {burgers} from '../../config/constants';
 
 export default class Burger extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        const burgers = [
-            {
-                "id": 9,
-                'type': 'burger',
-                "name": "1/4 Burger",
-                "price": 3.00,
-            },
-            {
-                "id": 10,
-                'type': 'burger',
-                "name": "1/2 Burger",
-                "price": 4,
-            },
-            {
-                "id": 11,
-                'type': 'burger',
-                "name": "1/4 Chicken Burger",
-                "price": 3.50,
-            },
-            {
-                "id": 12,
-                'type': 'burger',
-                "name": "Vegie Burger",
-                "price": 3.60,
-            },
-            {
-                "id": 13,
-                'type': 'burger',
-                "name": "Doner Roll",
-                "price": 3.80,
-            },
-            {
-                "id": 14,
-                'type': 'burger',
-                "name": "Chicken Doner Roll",
-                "price": 4.00,
-            },
-        ];
         this.state = {
             extra_toppings: [],
             dataSource: ds.cloneWithRows(burgers),
@@ -60,6 +23,8 @@ export default class Burger extends Component {
 
     setModalVisible(visible) { this.setState({modalVisible: visible}); }
     render(){
+        console.log('here');
+        console.log(burgers.length);
         return(
             <ListView style={styles.ListViewContainer} dataSource={this.state.dataSource} renderRow={(rowData) =>
                 <View style={styles.BurgerContainer}>

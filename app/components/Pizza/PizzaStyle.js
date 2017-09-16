@@ -5,14 +5,13 @@ import {width} from '../../config/constants';
 module.exports = StyleSheet.create({
     ListBaseContainer: {
         backgroundColor: 'white',
-        flexDirection: 'column',
+        flexDirection: 'row',
         flex:1
     },
     ItemBaseContainer: {
         flex: 1,
         width: width,
         flexDirection: 'row',
-        height: 70,
         borderBottomWidth: 0.5,
         borderColor: 'grey'
     },
