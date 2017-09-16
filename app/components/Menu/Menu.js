@@ -8,6 +8,7 @@ import {
 import Header from "../../layout/Header/Header";
 import Pizza from '../Pizza/Pizza';
 import Burger from '../Burger/Burger';
+import Cart from  '../cart/Cart';
 
 import {
     mealIcon,
@@ -106,9 +107,7 @@ class Menu extends Component {
                                 });
                             }}>
                             {
-                                this.state.products.map((product) => {
-                                    return (<Text>{product.name}</Text>)
-                                })
+                                <Cart products={this.state.products} />
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>
