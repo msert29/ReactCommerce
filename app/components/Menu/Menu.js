@@ -5,7 +5,6 @@ import {
     Text,
     TabBarIOS,
 } from 'react-native';
-import {Tabs} from "../../config/router";
 import Header from "../../layout/Header/Header";
 import Pizza from '../Pizza/Pizza';
 import Burger from '../Burger/Burger';

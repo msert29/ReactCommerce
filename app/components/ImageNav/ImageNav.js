@@ -6,8 +6,7 @@ const width = Dimensions.get('window').width;
 
 class ImageNav extends Component {
     static navigationOptions = {
-        title: 'Hello',
-        header: <Header pageTitle='Super Kebab & Pizza 2'/>
+        header: <Header pageTitle='Super Kebab & Pizza'/>
     };
 
     render() {
