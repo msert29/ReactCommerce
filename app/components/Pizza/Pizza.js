@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity, Dimensions} from 'react-native';
-const {width, height} = Dimensions.get('window');
 import PizzaStyle from './PizzaStyle';
 
 export default class Pizza extends Component {
@@ -97,15 +96,3 @@ export default class Pizza extends Component {
         )
     }
 }
-
-/*
-
-Action - An object that tells the reducer to change its data
-
-Reducer - A function that returns some data.
-
-State - Data for our app to us.
-
-Store- An object that holds the applications data [Reducer and State]
-
- */

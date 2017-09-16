@@ -10,3 +10,17 @@ const constants = {
 };
 
 module.exports = constants;
+
+
+/*
+Notes for Redux methodology
+
+Action - An object that tells the reducer to change its data
+
+Reducer - A function that returns some data.
+
+State - Data for our app to us.
+
+Store- An object that holds the applications data [Reducer and State]
+
+ */

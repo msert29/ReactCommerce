@@ -8,37 +8,37 @@ export default class Burger extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         const burgers = [
             {
-                "id": 1,
+                "id": 9,
                 'type': 'burger',
                 "name": "1/4 Burger",
                 "price": 3.00,
             },
             {
-                "id": 2,
+                "id": 10,
                 'type': 'burger',
                 "name": "1/2 Burger",
                 "price": 4,
             },
             {
-                "id": 3,
+                "id": 11,
                 'type': 'burger',
                 "name": "1/4 Chicken Burger",
                 "price": 3.50,
             },
             {
-                "id": 4,
+                "id": 12,
                 'type': 'burger',
                 "name": "Vegie Burger",
                 "price": 3.60,
             },
             {
-                "id": 5,
+                "id": 13,
                 'type': 'burger',
                 "name": "Doner Roll",
                 "price": 3.80,
             },
             {
-                "id": 6,
+                "id": 14,
                 'type': 'burger',
                 "name": "Chicken Doner Roll",
                 "price": 4.00,
@@ -80,15 +80,3 @@ export default class Burger extends Component {
         )
     }
 }
-
-/*
-
-Action - An object that tells the reducer to change its data
-
-Reducer - A function that returns some data.
-
-State - Data for our app to us.
-
-Store- An object that holds the applications data [Reducer and State]
-
- */
