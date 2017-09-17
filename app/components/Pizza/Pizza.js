@@ -19,49 +19,56 @@ export default class Pizza extends Component {
                 'type': 'pizza',
                 "name": "Vegetarian",
                 "price": 5.80,
-                "description": "Toppings: Tomato, "
+                "description": "Toppings: Tomato, ",
+                "quantity": 1
             },
             {
                 "id": 3,
                 'type': 'pizza',
                 "name": "Hawaiian",
                 "price": 5.80,
-                "description": "Toppings: fresh tomatoes"
+                "description": "Toppings: fresh tomatoes",
+                "quantity": 1
             },
             {
                 "id": 4,
                 'type': 'pizza',
                 "name": "Hot & Spicy",
                 "price": 6.80,
-                "description": "Toppings: mushroom, sweetcorn."
+                "description": "Toppings: mushroom, sweetcorn.",
+                "quantity": 1
             },
             {
                 "id": 5,
                 'type': 'pizza',
                 "name": "Mexican",
                 "price": 6.80,
-                'description': 'Toppings: Beef, Mushroom'
+                'description': 'Toppings: Beef, Mushroom',
+                "quantity": 1
             },
             {
                 "id": 6,
                 'type': 'pizza',
                 "name": "Seafood",
                 "price": 7.80,
-                'description': 'Toppings: Beef, Mushroom'
+                'description': 'Toppings: Beef, Mushroom',
+                "quantity": 1
             },
             {
                 "id": 7,
                 'type': 'pizza',
                 "name": "Meat Mix",
                 "price": 8.20,
-                'description': 'Toppings: Beef, Ham, Turkey, Chicken, Peperoni, Seafood, Chicken.'
+                'description': 'Toppings: Beef, Ham, Turkey, Chicken, Peperoni, Seafood, Chicken.',
+                "quantity": 1
             },
             {
                 "id": 8,
                 'type': 'pizza',
                 "name": "Super Special",
                 "price": 8.50,
-                'description': 'Toppings: All Toppings'
+                'description': 'Toppings: All Toppings',
+                "quantity": 1
             },
         ];
         this.state = {

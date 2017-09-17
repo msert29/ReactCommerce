@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
     View,
-    StyleSheet,
     Text,
     TabBarIOS,
 } from 'react-native';
@@ -33,7 +32,14 @@ class Menu extends Component {
     }
 
     addItem(product){
-        this.setState(prevState => {this.state.products.push(product)});
+        this.setState(prevState => {
+            if (this.state.products.indexOf(product) !== -1) {
+                let idx = this.state.products.indexOf(product);
+                this.state.products[idx].quantity += 1;
+            } else {
+                this.state.products.push(product);
+            }
+        });
     }
 
     render() {
