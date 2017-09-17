@@ -13,37 +13,48 @@ const constants = {
             'type': 'burger',
             "name": "1/4 Burger",
             "price": 3.00,
-            "description": "Beef burger with a choice of salad, sauce and cheese."
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
         {
             "id": 10,
             'type': 'burger',
             "name": "1/2 Burger",
             "price": 4,
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
         {
             "id": 11,
             'type': 'burger',
             "name": "1/4 Chicken Burger",
             "price": 3.50,
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
         {
             "id": 12,
             'type': 'burger',
             "name": "Vegie Burger",
             "price": 3.60,
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
         {
             "id": 13,
             'type': 'burger',
             "name": "Doner Roll",
             "price": 3.80,
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
         {
             "id": 14,
             'type': 'burger',
             "name": "Chicken Doner Roll",
             "price": 4.00,
+            "description": "Beef burger with a choice of salad, sauce and cheese.",
+            "quantity": 1
         },
     ]
 
