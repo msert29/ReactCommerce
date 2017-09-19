@@ -13,6 +13,13 @@ export default class Cart extends Component {
         }
     }
 
+    componentWillReceiveProps(){
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+            dataSource: ds.cloneWithRows(this.props.products)
+        })
+    }
+
     render(){
         return(
                 <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>
