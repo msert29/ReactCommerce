@@ -9,18 +9,20 @@ export default class Cart extends Component {
         this.state = {
             products: [],
             dataSource: ds.cloneWithRows(this.props.products),
+            total: 0
         }
     }
+
     render(){
         return(
-            <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>
-                            <View style={style.CartItem}>
-                                <Text>1</Text>
-                                <Text>{product.name.toString()}</Text>
-                                <Text>£{product.price.toFixed(2)}</Text>
-                            </View>
-                }
-            />
+                <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>
+                                <View style={style.CartItem}>
+                                    <Text>{product.quantity}</Text>
+                                    <Text>{product.name.toString()}</Text>
+                                    <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
+                                </View>
+                    }
+                />
         )
     }
 }

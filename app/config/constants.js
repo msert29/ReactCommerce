@@ -13,7 +13,8 @@ const constants = {
             'type': 'pizza',
             "name": "Margerita",
             "price": 5.50,
-            "description": "Toppings: Tomato"
+            "description": "Toppings: Tomato",
+            "quantity": 1
         },
         {
             "id": 2,

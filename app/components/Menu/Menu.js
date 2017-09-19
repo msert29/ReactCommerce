@@ -108,9 +108,7 @@ class Menu extends Component {
                             title="Cart"
                             selected={this.state.selectedTab === 'cart'}
                             onPress={() => {
-                                this.setState({
-                                    selectedTab: 'cart',
-                                });
+                                this.setState({selectedTab: 'cart'});
                             }}>
                             {
                                 <Cart products={this.state.products} />
