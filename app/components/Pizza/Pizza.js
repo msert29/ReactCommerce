@@ -1,76 +1,12 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity, Dimensions} from 'react-native';
 import PizzaStyle from './PizzaStyle';
+import {pizzas} from '../../config/constants';
 
 export default class Pizza extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        const pizzas = [
-            {
-                "id": 1,
-                'type': 'pizza',
-                "name": "Margerita",
-                "price": 5.50,
-                "description": "Toppings: Tomato"
-            },
-            {
-                "id": 2,
-                'type': 'pizza',
-                "name": "Vegetarian",
-                "price": 5.80,
-                "description": "Toppings: Tomato, ",
-                "quantity": 1
-            },
-            {
-                "id": 3,
-                'type': 'pizza',
-                "name": "Hawaiian",
-                "price": 5.80,
-                "description": "Toppings: fresh tomatoes",
-                "quantity": 1
-            },
-            {
-                "id": 4,
-                'type': 'pizza',
-                "name": "Hot & Spicy",
-                "price": 6.80,
-                "description": "Toppings: mushroom, sweetcorn.",
-                "quantity": 1
-            },
-            {
-                "id": 5,
-                'type': 'pizza',
-                "name": "Mexican",
-                "price": 6.80,
-                'description': 'Toppings: Beef, Mushroom',
-                "quantity": 1
-            },
-            {
-                "id": 6,
-                'type': 'pizza',
-                "name": "Seafood",
-                "price": 7.80,
-                'description': 'Toppings: Beef, Mushroom',
-                "quantity": 1
-            },
-            {
-                "id": 7,
-                'type': 'pizza',
-                "name": "Meat Mix",
-                "price": 8.20,
-                'description': 'Toppings: Beef, Ham, Turkey, Chicken, Peperoni, Seafood, Chicken.',
-                "quantity": 1
-            },
-            {
-                "id": 8,
-                'type': 'pizza',
-                "name": "Super Special",
-                "price": 8.50,
-                'description': 'Toppings: All Toppings',
-                "quantity": 1
-            },
-        ];
         this.state = {
             extra_toppings: [],
             dataSource: ds.cloneWithRows(pizzas),
@@ -84,7 +20,7 @@ export default class Pizza extends Component {
 
     render(){
         return(
-            <ListView style={PizzaStyle.ListBaseContainer}  dataSource={this.state.dataSource} renderRow={(rowData) =>
+            <ListView style={PizzaStyle.ListBaseContainer} dataSource={this.state.dataSource} renderRow={(rowData) =>
                 <View style={PizzaStyle.ItemBaseContainer}>
                     <View style={PizzaStyle.PizzaNameDescriptionContainer}>
                         <Text style={PizzaStyle.PizzaName}>{rowData.name}</Text>
