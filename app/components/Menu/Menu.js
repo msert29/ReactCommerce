@@ -25,6 +25,8 @@ class Menu extends Component {
     constructor(props){
         super(props);
         this.addItem = this.addItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
+
         this.state = {
             products: [],
             selectedTab: 'pizzas',
@@ -40,6 +42,15 @@ class Menu extends Component {
                 this.state.products.push(product);
             }
         });
+    }
+
+    removeItem(product){
+        this.setState(prevState => {
+            console.log((this.state));
+            let idx = this.state.products.indexOf(product);
+            this.state.products.splice(idx, 1)
+            //this.state.products[idx].splice(idx, 1);
+        })
     }
 
     render() {
@@ -111,7 +122,7 @@ class Menu extends Component {
                                 this.setState({selectedTab: 'cart'});
                             }}>
                             {
-                                <Cart products={this.state.products} />
+                                <Cart products={this.state.products} removeItem={this.removeItem}/>
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>

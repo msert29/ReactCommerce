@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Text, View, ListView} from 'react-native';
+import {Text, View, ListView, TouchableOpacity} from 'react-native';
 import style from './CartStyles';
 
 export default class Cart extends Component {
@@ -11,6 +11,7 @@ export default class Cart extends Component {
             dataSource: ds.cloneWithRows(this.props.products),
             total: 0
         }
+        this.removeItem = this.removeItem.bind(this);
     }
 
     componentWillReceiveProps(){
@@ -20,14 +21,20 @@ export default class Cart extends Component {
         })
     }
 
+    removeItem(product){
+        this.props.removeItem(product);
+    }
 
     render(){
         return(
                 <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>
                                 <View style={style.CartItem}>
-                                    <Text>{product.quantity}</Text>
+                                    <Text>{product.quantity}x</Text>
                                     <Text>{product.name.toString()}</Text>
                                     <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
+                                    <TouchableOpacity onPress={() => {this.removeItem(product)}}>
+                                        <Text>Remove</Text>
+                                    </TouchableOpacity>
                                 </View>
                     }
                 />
