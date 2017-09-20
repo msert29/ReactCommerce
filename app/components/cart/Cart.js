@@ -27,8 +27,8 @@ export default class Cart extends Component {
 
     render(){
         return(
-                <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>
-                                <View style={style.CartItem}>
+                <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
+                                <View style={style.CartItem} key={rowID}>
                                     <Text>{product.quantity}x</Text>
                                     <Text>{product.name.toString()}</Text>
                                     <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
