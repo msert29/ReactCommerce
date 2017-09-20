@@ -20,6 +20,7 @@ export default class Cart extends Component {
         })
     }
 
+
     render(){
         return(
                 <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product) =>

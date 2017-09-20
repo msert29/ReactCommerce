@@ -11,10 +11,10 @@ export default class Pizza extends Component {
             extra_toppings: [],
             dataSource: ds.cloneWithRows(pizzas),
         };
-        this.onClick = this.onClick.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
-    onClick(product) {
+    addToCart(product) {
         this.props.addItem(product);
     }
 
@@ -30,7 +30,7 @@ export default class Pizza extends Component {
                         <Text style={PizzaStyle.PizzaPriceText}>from £{rowData.price.toFixed(2)}</Text>
                     </View>
                     <View style={PizzaStyle.PizzaAddButtonContainer}>
-                        <TouchableOpacity style={PizzaStyle.PizzaAddButton} onPress={() => {this.onClick(rowData)}}>
+                        <TouchableOpacity style={PizzaStyle.PizzaAddButton} onPress={() => {this.addToCart(rowData)}}>
                             <Text style={PizzaStyle.PizzaAddButtonText}>+</Text>
                         </TouchableOpacity>
                     </View>

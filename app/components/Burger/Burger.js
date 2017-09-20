@@ -12,13 +12,11 @@ export default class Burger extends Component {
             dataSource: ds.cloneWithRows(burgers),
             modalVisible: false
         };
-        this.onClick = this.onClick.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
-    onClick(product) {
-        this.setState({modalVisible: !this.state.modalVisible});
-        this.props.addItem(product);
-        console.log(this.state);
+    addToCart(product){
+        this.props.addItem(product)
     }
 
     setModalVisible(visible) { this.setState({modalVisible: visible}); }
@@ -36,7 +34,7 @@ export default class Burger extends Component {
                         <Text style={styles.BurgerPrice}>from £{rowData.price.toFixed(2)}</Text>
                     </View>
                     <View style={styles.BurgerAddButtonContainer}>
-                        <TouchableOpacity style={styles.BurgerAddButton} onPress={() => {this.setModalVisible(true)}}>
+                        <TouchableOpacity style={styles.BurgerAddButton} onPress={() => {this.addToCart(rowData)}}>
                             <Text style={styles.BurgerAddButtonText}>+</Text>
                         </TouchableOpacity>
                     </View>
