@@ -34,28 +34,26 @@ class Menu extends Component {
     }
 
     addItem(product){
-        this.setState(prevState => {
-            if (this.state.products.indexOf(product) !== -1) {
-                let idx = this.state.products.indexOf(product);
-                this.state.products[idx].quantity += 1;
-            } else {
-                this.state.products.push(product);
-            }
-        });
+      let products = this.state.products
+      let idx = this.state.products.indexOf(product);
+      if (this.state.products.indexOf(product) !== -1) {
+          products[idx].quantity += 1;
+      } else {
+          products.push(product);
+      }
+      this.setState({products: products})
     }
 
     removeItem(product){
-        this.setState(prevState => {
-            console.log((this.state));
-            let idx = this.state.products.indexOf(product);
-            // Check if quantity is higher than one and if so remove one item only at a time!
-            if (this.state.products[idx].quantity > 1 ){
-                this.state.products[idx].quantity -= 1
-            } else {
-                this.state.products.splice(idx)
-            }
-            //this.state.products[idx].splice(idx, 1);
-        })
+      let idx = this.state.products.indexOf(product)
+      let products = this.state.products
+        if (this.state.products[idx].quantity > 1 ){
+          products[idx].quantity -= 1
+        } else {
+          products.splice(idx, 1)
+        }
+      this.setState({products: products})
+
     }
 
     render() {
