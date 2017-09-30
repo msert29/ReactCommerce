@@ -25,19 +25,37 @@ export default class Cart extends Component {
     this.props.removeItem(product)
   }
 
+  totalPrice () {
+    let total = 0
+    if (this.props.products.length > 0) {
+      this.props.products.map(product => {
+        total += (product.quantity * product.price)
+      })
+    }
+    return total
+  }
+
   render () {
     return (
-      <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
-        <View style={style.CartItem} key={rowID}>
-          <Text>{product.quantity}x</Text>
-          <Text>{product.name.toString()}</Text>
-          <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
-          <TouchableOpacity onPress={() => { this.removeItem(product) }}>
-            <Text>Remove</Text>
-          </TouchableOpacity>
+      <View>
+        <View>
+          <ListView style={style.CartContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
+            <View style={style.CartItem} key={rowID}>
+              <Text>{product.quantity}x</Text>
+              <Text>{product.name.toString()}</Text>
+              <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
+              <TouchableOpacity style={{backgroundColor: 'red'}} onPress={() => { this.removeItem(product) }}>
+                <Text>Remove</Text>
+              </TouchableOpacity>
+            </View>
+          }
+          />
         </View>
-      }
-      />
+        <View>
+          <Text>Total</Text>
+          <Text>{this.totalPrice()}</Text>
+        </View>
+      </View>
     )
   }
 }
