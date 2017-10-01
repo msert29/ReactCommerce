@@ -71,18 +71,18 @@ export default class Cart extends Component {
     console.log(this.state)
     return (
       <View style={style.CartContainer}>
-        <View style={{flex: 3}}>
+        <View style={{flex: 3, padding: 10}}>
           {this.renderIf(this.props.products.length > 0, this.displayCart())}
           {this.renderIf(this.props.products.length < 1, Cart.displayEmptyCart())}
         </View>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginBottom: 20}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginBottom: 20, marginTop: 20}}>
           <Text>Total £{this.totalPrice().toFixed(2)}</Text>
           <Button
             disabled={this.props.checkoutDisabled}
             large
             raised
             BACKGROUNDCOLOR="Green"
-            title='Proceed to Checkout' style={{padding: 5}}/>
+            title='Proceed to Checkout' style={{flex: 1, padding: 10, width: width}}/>
         </View>
       </View>
     )

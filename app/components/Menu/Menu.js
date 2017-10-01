@@ -15,6 +15,7 @@ import {
     kebabIcon,
     burgerIcon,
     pizzaIcon,
+    minimumOrderFee
 } from '../../config/constants';
 
 class Menu extends Component {
@@ -44,25 +45,31 @@ class Menu extends Component {
           products.push(product);
       }
       let totalPrice = this.state.totalPrice + (product.price * product.quantity)
-      this.setState({products: products, totalPrice: totalPrice, checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)})
+      this.setState({
+        products: products,
+        totalPrice: totalPrice,
+        checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)
+      })
     }
 
     removeItem(product){
       let idx = this.state.products.indexOf(product)
       let products = this.state.products
       let totalPrice = this.state.totalPrice - (product.price * product.quantity)
-      console.log(totalPrice)
-        if (this.state.products[idx].quantity > 1 ){
+      if (this.state.products[idx].quantity > 1 ){
           products[idx].quantity -= 1
-        } else {
+      } else {
           products.splice(idx, 1)
-        }
-      this.setState({products: products, totalPrice: totalPrice, checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)})
-
+      }
+      this.setState({
+          products: products,
+          totalPrice: totalPrice,
+          checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)}
+        )
     }
 
     totalPriceAboveMinimumOrder(totalPrice) {
-      return totalPrice < 13
+      return totalPrice < minimumOrderFee
     }
 
     render() {
