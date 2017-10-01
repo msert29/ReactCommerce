@@ -20,7 +20,8 @@ module.exports = StyleSheet.create({
     padding: 20,
     margin: 20,
     marginBottom: 1,
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.2,
+    alignItems: 'center'
   },
   totalContainer: {
     flex: 1

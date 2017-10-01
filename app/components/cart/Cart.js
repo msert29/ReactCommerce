@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Text, View, ListView, TouchableOpacity, Image } from 'react-native'
-import { Button, FormLabel, FormInput } from 'react-native-elements'
+import { Button, FormLabel, FormInput, Icon } from 'react-native-elements'
 import {width} from '../../config/constants'
 import style from './CartStyles'
 
@@ -52,8 +52,13 @@ export default class Cart extends Component {
           <Text>{product.quantity}x</Text>
           <Text>{product.name.toString()}</Text>
           <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
-          <TouchableOpacity style={{backgroundColor: 'red'}} onPress={() => { this.removeItem(product) }}>
-            <Text>Remove</Text>
+          <TouchableOpacity onPress={() => { this.removeItem(product) }}>
+            <Icon
+              size={15}
+              reverse
+              color="red"
+              name='close' />
+
           </TouchableOpacity>
         </View>
       } />
@@ -81,7 +86,7 @@ export default class Cart extends Component {
             disabled={this.props.checkoutDisabled}
             large
             raised
-            BACKGROUNDCOLOR="Green"
+            backgroundColor="green"
             title='Proceed to Checkout' style={{flex: 1, padding: 10, width: width}}/>
         </View>
       </View>
