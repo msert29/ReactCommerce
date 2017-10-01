@@ -8,14 +8,22 @@ module.exports = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'white'
   },
+  CartProductContainer: {
+    flex: 2,
+    flexDirection: 'column',
+    backgroundColor: 'white'
+  },
   CartItem: {
     justifyContent: 'space-around',
-    flex: 3,
+    flex: 2,
     flexDirection: 'row',
     padding: 20,
     margin: 20,
     marginBottom: 1,
     borderBottomWidth: 0.5
+  },
+  totalContainer: {
+    flex: 1
   }
 
 })

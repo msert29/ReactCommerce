@@ -30,6 +30,8 @@ class Menu extends Component {
         this.state = {
             products: [],
             selectedTab: 'pizzas',
+            checkoutDisabled: true,
+            totalPrice: 0
         };
     }
 
@@ -41,19 +43,26 @@ class Menu extends Component {
       } else {
           products.push(product);
       }
-      this.setState({products: products})
+      let totalPrice = this.state.totalPrice + (product.price * product.quantity)
+      this.setState({products: products, totalPrice: totalPrice, checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)})
     }
 
     removeItem(product){
       let idx = this.state.products.indexOf(product)
       let products = this.state.products
+      let totalPrice = this.state.totalPrice - (product.price * product.quantity)
+      console.log(totalPrice)
         if (this.state.products[idx].quantity > 1 ){
           products[idx].quantity -= 1
         } else {
           products.splice(idx, 1)
         }
-      this.setState({products: products})
+      this.setState({products: products, totalPrice: totalPrice, checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)})
 
+    }
+
+    totalPriceAboveMinimumOrder(totalPrice) {
+      return totalPrice < 13
     }
 
     render() {
@@ -125,7 +134,7 @@ class Menu extends Component {
                                 this.setState({selectedTab: 'cart'});
                             }}>
                             {
-                                <Cart products={this.state.products} removeItem={this.removeItem}/>
+                                <Cart products={this.state.products} removeItem={this.removeItem} checkoutDisabled={this.state.checkoutDisabled}/>
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>
