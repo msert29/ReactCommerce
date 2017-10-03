@@ -31,45 +31,57 @@ class Menu extends Component {
         this.state = {
             products: [],
             selectedTab: 'pizzas',
-            checkoutDisabled: true,
+            checkoutEnabled: false,
             totalPrice: 0
         };
     }
 
     addItem(product){
+      // Get current list of products
       let products = this.state.products
-      let idx = this.state.products.indexOf(product);
+      let idx = this.state.products.indexOf(product)
+
+      // Update the total price by quantity * price of the added product
+      let totalPrice = this.state.totalPrice + (product.price * product.quantity)
       if (this.state.products.indexOf(product) !== -1) {
           products[idx].quantity += 1;
       } else {
           products.push(product);
       }
-      let totalPrice = this.state.totalPrice + (product.price * product.quantity)
+
+      // Update the state
       this.setState({
         products: products,
         totalPrice: totalPrice,
-        checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)
+        checkoutEnabled: this.eligableForDelivery(totalPrice)
       })
     }
 
     removeItem(product){
       let idx = this.state.products.indexOf(product)
       let products = this.state.products
-      let totalPrice = this.state.totalPrice - (product.price * product.quantity)
+      let totalPrice = 0
+
+      // Remove single item if multiple items added, else remove the whole item from cart
       if (this.state.products[idx].quantity > 1 ){
           products[idx].quantity -= 1
+          totalPrice = this.state.totalPrice - (product.price * product.quantity)
       } else {
           products.splice(idx, 1)
+          totalPrice = this.state.totalPrice - product.price
       }
       this.setState({
           products: products,
           totalPrice: totalPrice,
-          checkoutDisabled: this.totalPriceAboveMinimumOrder(totalPrice)}
+          checkoutEnabled: this.eligableForDelivery(totalPrice)}
         )
     }
 
-    totalPriceAboveMinimumOrder(totalPrice) {
-      return totalPrice < minimumOrderFee
+    eligableForDelivery(totalPrice) {
+      console.log(totalPrice)
+      console.log(minimumOrderFee)
+      console.log(totalPrice >= minimumOrderFee)
+      return totalPrice >= minimumOrderFee
     }
 
     render() {
@@ -141,7 +153,7 @@ class Menu extends Component {
                                 this.setState({selectedTab: 'cart'});
                             }}>
                             {
-                                <Cart products={this.state.products} removeItem={this.removeItem} checkoutDisabled={this.state.checkoutDisabled}/>
+                                <Cart products={this.state.products} removeItem={this.removeItem} checkoutEnabled={this.state.checkoutEnabled}/>
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>

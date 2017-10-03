@@ -11,7 +11,7 @@ export default class Cart extends Component {
     this.state = {
       products: [],
       dataSource: ds.cloneWithRows(this.props.products),
-      total: 0,
+      total: 0
     }
     this.removeItem = this.removeItem.bind(this)
   }
@@ -83,7 +83,7 @@ export default class Cart extends Component {
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginBottom: 5, marginTop: 20}}>
           <Text>Total £{this.totalPrice().toFixed(2)}</Text>
           <Button
-            disabled={this.props.checkoutDisabled}
+            disabled={!this.props.checkoutEnabled}
             large
             raised
             backgroundColor="green"

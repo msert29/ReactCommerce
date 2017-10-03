@@ -161,7 +161,7 @@ const constants = {
     }
 
   ],
-  minimumOrderFee: 13
+  minimumOrderFee: 13.00
 
 }
 
