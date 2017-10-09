@@ -31,7 +31,8 @@ class Menu extends Component {
         this.state = {
             products: [],
             selectedTab: 'pizzas',
-            checkoutEnabled: false,
+            deliveryEnabled: false,
+            collectionEnabled: false,
             totalPrice: 0
         };
     }
@@ -53,7 +54,8 @@ class Menu extends Component {
       this.setState({
         products: products,
         totalPrice: totalPrice,
-        checkoutEnabled: this.eligableForDelivery(totalPrice)
+        deliveryEnabled: this.eligableForDelivery(totalPrice),
+        collectionEnabled: this.eligableForCollection(totalPrice)
       })
     }
 
@@ -73,15 +75,18 @@ class Menu extends Component {
       this.setState({
           products: products,
           totalPrice: totalPrice,
-          checkoutEnabled: this.eligableForDelivery(totalPrice)}
-        )
+          deliveryEnabled: this.eligableForDelivery(totalPrice),
+          collectionEnabled: this.eligableForCollection(totalPrice)
+      })
     }
 
     eligableForDelivery(totalPrice) {
-      console.log(totalPrice)
-      console.log(minimumOrderFee)
-      console.log(totalPrice >= minimumOrderFee)
       return totalPrice >= minimumOrderFee
+    }
+
+    eligableForCollection(totalPrice) {
+      // At least have one item in the basket to order a collection
+      return totalPrice > 1
     }
 
     render() {
@@ -153,7 +158,9 @@ class Menu extends Component {
                                 this.setState({selectedTab: 'cart'});
                             }}>
                             {
-                                <Cart products={this.state.products} removeItem={this.removeItem} checkoutEnabled={this.state.checkoutEnabled}/>
+                                <Cart products={this.state.products} removeItem={this.removeItem}
+                                      deliveryEnabled={this.state.deliveryEnabled}
+                                      collectionEnabled={this.state.collectionEnabled}/>
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>

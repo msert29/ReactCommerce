@@ -81,13 +81,22 @@ export default class Cart extends Component {
         </View>
         <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center', flexDirection: 'column', marginBottom: 5, marginTop: 20}}>
           <Text style={{alignSelf: 'center'}}>Total £{this.totalPrice().toFixed(2)}</Text>
-          <View style={{ flex:1, flexDirection: 'row', alignItems: 'stretch' }}>
-            <TouchableOpacity style={{flex:1, backgroundColor: 'purple'}}>
-              <Text style={{alignSelf: 'center', textAlign: 'center'}}>Collection</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{flex:1, backgroundColor: 'green'}}>
-              <Text style={{textAlign: 'center', alignSelf: 'center'}}>Delivery</Text>
-            </TouchableOpacity>
+          <View style={{ flex:1, flexDirection: 'row', alignItems: 'stretch'}}>
+            <Button
+              raised
+              large
+              backgroundColor="green"
+              disabled={!this.props.collectionEnabled}
+              icon={{name: 'home'}}
+              title='Collection' buttonStyle={{width: width/2-30}}/>
+            <Button
+              raised
+              large
+              backgroundColor="#C71585"
+              textStyle={{color: 'white'}}
+              disabled={!this.props.deliveryEnabled}
+              icon={{name: 'motorcycle'}}
+              title='Delivery' buttonStyle={{width: width/2-30}}/>
           </View>
         </View>
       </View>
