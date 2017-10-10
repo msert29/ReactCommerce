@@ -27,14 +27,16 @@ export default class Cart extends Component {
     this.props.removeItem(product)
   }
 
-  totalPrice () {
-    let total = 0
+  accumulateItems () {
+    let totalItems = 0
+    let totalPrice = 0
     if (this.props.products.length > 0) {
       this.props.products.map(product => {
-        total += (product.quantity * product.price)
+        totalPrice += (product.quantity * product.price)
+        totalItems += product.quantity
       })
     }
-    return total
+    return {'totalPrice': totalPrice, 'totalItems': totalItems}
   }
 
   renderIf (condition, content) {
@@ -79,16 +81,23 @@ export default class Cart extends Component {
           {this.renderIf(this.props.products.length > 0, this.displayCart())}
           {this.renderIf(this.props.products.length < 1, Cart.displayEmptyCart())}
         </View>
-        <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center', flexDirection: 'column', marginBottom: 5, marginTop: 20}}>
-          <Text style={{alignSelf: 'center'}}>Total £{this.totalPrice().toFixed(2)}</Text>
-          <View style={{ flex:1, flexDirection: 'row', alignItems: 'stretch'}}>
+        <View style={{flex: 1.5, alignItems: 'stretch', justifyContent: 'center', flexDirection: 'column', marginBottom: 5, marginTop: 20}}>
+          <View style={{flexDirection: 'column', flex: 0.5}}>
+            <Text style={{alignSelf: 'flex-end', borderBottomWidth: 0.5, borderBottomColor: 'black', marginRight: 15, padding: 5}}>
+                      Total Items {this.accumulateItems()['totalItems']}
+            </Text>
+            <Text style={{alignSelf: 'flex-end', borderBottomWidth: 0.5, borderBottomColor: 'black', marginRight: 15, padding: 5}}>
+                      Total £{this.accumulateItems()['totalPrice'].toFixed(2)}
+            </Text>
+          </View>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>
             <Button
               raised
               large
               backgroundColor="green"
               disabled={!this.props.collectionEnabled}
               icon={{name: 'home'}}
-              title='Collection' buttonStyle={{width: width/2-30}}/>
+              title='Collection' buttonStyle={{width: width / 2 - 30}}/>
             <Button
               raised
               large
@@ -96,7 +105,7 @@ export default class Cart extends Component {
               textStyle={{color: 'white'}}
               disabled={!this.props.deliveryEnabled}
               icon={{name: 'motorcycle'}}
-              title='Delivery' buttonStyle={{width: width/2-30}}/>
+              title='Delivery' buttonStyle={{width: width / 2 - 30}}/>
           </View>
         </View>
       </View>
