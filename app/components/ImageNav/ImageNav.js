@@ -21,7 +21,7 @@ class ImageNav extends Component {
                 }}>
                 <ImageBackground style={{flex: 1, width: width, marginBottom: 1}} blurRadius={8} source={require('../../images/pizza.jpg')}>
                     <View style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <TouchableOpacity onPress={() => this.props.navigate('Order')}>
+                        <TouchableOpacity onPress={() => this.props.navigate('Order', {'sectionName': 'Pizzas'})}>
                             <Text style={{backgroundColor: 'transparent', fontWeight: '100', fontSize: 50, color: 'white'}}>
                                 Place an Order
                             </Text>

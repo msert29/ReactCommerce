@@ -37,7 +37,8 @@ export default class Homepage extends Component {
 
 const Super = StackNavigator({
     Home: {screen: Homepage},
-    Order: {screen: Menu}
+    Order: {screen: Menu},
+    // Dressing: {screen: Dressings}
 });
 
 AppRegistry.registerComponent('Super', () => Super);

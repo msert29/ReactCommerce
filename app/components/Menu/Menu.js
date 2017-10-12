@@ -19,9 +19,9 @@ import {
 } from '../../config/constants';
 
 class Menu extends Component {
-    static navigationOptions = {
-        header: <Header pageTitle="Menu"/>,
-    };
+    static navigationOptions = ({navigation}) => ({
+      header: <Header pageTitle={navigation.state.params.sectionName}/>
+    });
 
     constructor(props){
         super(props);
@@ -30,10 +30,10 @@ class Menu extends Component {
 
         this.state = {
             products: [],
-            selectedTab: 'pizzas',
+            selectedTab: 'Pizzas',
             deliveryEnabled: false,
             collectionEnabled: false,
-            totalPrice: 0
+            totalPrice: 0,
         };
     }
 
@@ -54,8 +54,8 @@ class Menu extends Component {
       this.setState({
         products: products,
         totalPrice: totalPrice,
-        deliveryEnabled: this.eligableForDelivery(totalPrice),
-        collectionEnabled: this.eligableForCollection(totalPrice)
+        deliveryEnabled: this.eligibleForDelivery(totalPrice),
+        collectionEnabled: this.eligibleForCollection(totalPrice)
       })
     }
 
@@ -75,18 +75,23 @@ class Menu extends Component {
       this.setState({
           products: products,
           totalPrice: totalPrice,
-          deliveryEnabled: this.eligableForDelivery(totalPrice),
-          collectionEnabled: this.eligableForCollection(totalPrice)
+          deliveryEnabled: this.eligibleForDelivery(totalPrice),
+          collectionEnabled: this.eligibleForCollection(totalPrice)
       })
     }
 
-    eligableForDelivery(totalPrice) {
+    eligibleForDelivery(totalPrice) {
       return totalPrice >= minimumOrderFee
     }
 
-    eligableForCollection(totalPrice) {
+    eligibleForCollection(totalPrice) {
       // At least have one item in the basket to order a collection
       return totalPrice > 1
+    }
+
+    updateTabAndTitle (title) {
+      this.setState({selectedTab: title});
+      this.props.navigation.setParams({sectionName: title})
     }
 
     render() {
@@ -99,12 +104,8 @@ class Menu extends Component {
                         <TabBarIOS.Item
                             icon={{uri: pizzaIcon , scale: 2}}
                             title="Pizzas"
-                            selected={this.state.selectedTab === 'pizzas'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'pizzas',
-                                });
-                            }}>
+                            selected={this.state.selectedTab === 'Pizzas'}
+                            onPress={() => this.updateTabAndTitle('Pizzas')}>
                             {
                               <Pizza addItem={this.addItem} />
                             }
@@ -112,12 +113,8 @@ class Menu extends Component {
                         <TabBarIOS.Item
                             title="Kebabs"
                             icon={{uri: kebabIcon, scale:2}}
-                            selected={this.state.selectedTab === 'kebabs'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'kebabs',
-                                });
-                            }}>
+                            selected={this.state.selectedTab === 'Kebabs'}
+                            onPress={() => this.updateTabAndTitle('Kebabs')}>
                             {
                                 <View>
                                     <Text>Kebabs</Text>
@@ -127,12 +124,8 @@ class Menu extends Component {
                         <TabBarIOS.Item
                             icon={{uri: burgerIcon, scale:2}}
                             title="Burgers"
-                            selected={this.state.selectedTab === 'burgers'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'burgers',
-                                });
-                            }}>
+                            selected={this.state.selectedTab === 'Burgers'}
+                            onPress={() => this.updateTabAndTitle('Burgers')}>
                             {
                                 <Burger addItem={this.addItem} />
                             }
@@ -140,12 +133,8 @@ class Menu extends Component {
                         <TabBarIOS.Item
                             title="Meals"
                             icon={{uri: mealIcon, scale: 2}}
-                            selected={this.state.selectedTab === 'meals'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'meals',
-                                });
-                            }}>
+                            selected={this.state.selectedTab === 'Meals'}
+                            onPress={() => this.updateTabAndTitle('Meals')}>
                             {
                                 <View>
                                     <Text>Meals</Text>
@@ -155,14 +144,14 @@ class Menu extends Component {
                         <TabBarIOS.Item
                             icon={{uri: cartIcon, scale: 2}}
                             title="Cart"
-                            selected={this.state.selectedTab === 'cart'}
-                            onPress={() => {
-                                this.setState({selectedTab: 'cart'});
-                            }}>
+                            selected={this.state.selectedTab === 'Cart'}
+                            onPress={() => this.updateTabAndTitle('Cart')}>
                             {
-                                <Cart products={this.state.products} removeItem={this.removeItem}
-                                      deliveryEnabled={this.state.deliveryEnabled}
-                                      collectionEnabled={this.state.collectionEnabled}/>
+                                <Cart
+                                  products={this.state.products} removeItem={this.removeItem}
+                                  deliveryEnabled={this.state.deliveryEnabled}
+                                  collectionEnabled={this.state.collectionEnabled}
+                                />
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>
