@@ -105,7 +105,9 @@ class Menu extends Component {
                                     selectedTab: 'pizzas',
                                 });
                             }}>
-                            {<Pizza addItem={this.addItem} />}
+                            {
+                              <Pizza addItem={this.addItem} />
+                            }
                         </TabBarIOS.Item>
                         <TabBarIOS.Item
                             title="Kebabs"
@@ -164,7 +166,6 @@ class Menu extends Component {
                             }
                         </TabBarIOS.Item>
                     </TabBarIOS>
-
                 </View>
         )
     }
