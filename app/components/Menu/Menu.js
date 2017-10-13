@@ -3,6 +3,7 @@ import {
     View,
     Text,
     TabBarIOS,
+    TouchableOpacity
 } from 'react-native';
 import Header from "../../layout/Header/Header";
 import Pizza from '../Pizza/Pizza';
@@ -107,7 +108,7 @@ class Menu extends Component {
                             selected={this.state.selectedTab === 'Pizzas'}
                             onPress={() => this.updateTabAndTitle('Pizzas')}>
                             {
-                              <Pizza addItem={this.addItem} />
+                              <Pizza addItem={this.addItem} navigation={this.props.navigation} />
                             }
                         </TabBarIOS.Item>
                         <TabBarIOS.Item
@@ -117,7 +118,9 @@ class Menu extends Component {
                             onPress={() => this.updateTabAndTitle('Kebabs')}>
                             {
                                 <View>
-                                    <Text>Kebabs</Text>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Dressings')}>
+                                      <Text>Kebabs</Text>
+                                    </TouchableOpacity>
                                 </View>
                             }
                         </TabBarIOS.Item>
@@ -127,7 +130,7 @@ class Menu extends Component {
                             selected={this.state.selectedTab === 'Burgers'}
                             onPress={() => this.updateTabAndTitle('Burgers')}>
                             {
-                                <Burger addItem={this.addItem} />
+                                <Burger addItem={this.addItem} navigation={this.props.navigation}/>
                             }
                         </TabBarIOS.Item>
                         <TabBarIOS.Item
@@ -151,6 +154,7 @@ class Menu extends Component {
                                   products={this.state.products} removeItem={this.removeItem}
                                   deliveryEnabled={this.state.deliveryEnabled}
                                   collectionEnabled={this.state.collectionEnabled}
+                                  navigation={this.props.navigation}
                                 />
                             }
                         </TabBarIOS.Item>

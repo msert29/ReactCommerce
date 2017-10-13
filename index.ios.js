@@ -10,6 +10,7 @@ import {
 import Header from './app/layout/Header/Header';
 import ImageNav from "./app/components/ImageNav/ImageNav";
 import Menu from "./app/components/Menu/Menu";
+import Dressings from "./app/components/Dressings/Dressings";
 import { StackNavigator, withNavigation } from 'react-navigation';
 const window = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -37,8 +38,8 @@ export default class Homepage extends Component {
 
 const Super = StackNavigator({
     Home: {screen: Homepage},
-    Order: {screen: Menu},
-    // Dressing: {screen: Dressings}
+    Menu: {screen: Menu},
+    Dressings: {screen: Dressings}
 });
 
 AppRegistry.registerComponent('Super', () => Super);
