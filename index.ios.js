@@ -11,7 +11,9 @@ import Header from './app/layout/Header/Header';
 import ImageNav from "./app/components/ImageNav/ImageNav";
 import Menu from "./app/components/Menu/Menu";
 import Dressings from "./app/components/Dressings/Dressings";
-import { StackNavigator, withNavigation } from 'react-navigation';
+import CommonModal from "./app/components/CommonModal/CommonModal"
+import { StackNavigator } from 'react-navigation';
+
 const window = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
@@ -39,7 +41,8 @@ export default class Homepage extends Component {
 const Super = StackNavigator({
     Home: {screen: Homepage},
     Menu: {screen: Menu},
-    Dressings: {screen: Dressings}
+    Dressings: {screen: Dressings},
+    defaultModal: { screen: CommonModal }
 });
 
 AppRegistry.registerComponent('Super', () => Super);
