@@ -17,8 +17,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-around',
     flex: 2,
     flexDirection: 'row',
-    padding: 20,
-    margin: 20,
+    padding: 10,
+    margin: 15,
     marginBottom: 1,
     borderBottomWidth: 0.2,
     alignItems: 'center'
