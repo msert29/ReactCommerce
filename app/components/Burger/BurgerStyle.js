@@ -6,7 +6,9 @@ module.exports = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     flex: 1,
-    marginBottom: 50
+    marginBottom: 50,
+    borderBottomWidth: 0.5,
+    borderColor: 'grey'
   },
   BurgerContainer: {
     flex: 1,
@@ -16,9 +18,7 @@ module.exports = StyleSheet.create({
     borderColor: 'grey'
   },
   BurgerNameContainer: {
-    flex: 2,
-    borderBottomWidth: 0.5,
-    borderColor: 'grey'
+    flex: 2
   },
   BurgerName: {
     flex: 2,
@@ -37,8 +37,6 @@ module.exports = StyleSheet.create({
   },
   BurgerPriceContainer: {
     flex: 1,
-    borderBottomWidth: 0.5,
-    borderColor: 'grey',
     justifyContent: 'center',
     alignSelf: 'center'
   },
@@ -54,9 +52,7 @@ module.exports = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    borderBottomWidth: 0.5,
-    borderColor: 'grey'
+    justifyContent: 'flex-end'
   },
   BurgerAddButton: {
     margin: 5,

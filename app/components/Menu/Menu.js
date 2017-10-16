@@ -10,6 +10,7 @@ import Header from "../../layout/Header/Header";
 import Pizza from '../Pizza/Pizza';
 import Burger from '../Burger/Burger';
 import Cart from  '../cart/Cart';
+import Dressings from './../Dressings/Dressings'
 
 import {
     mealIcon,
@@ -97,6 +98,15 @@ class Menu extends Component {
       this.props.navigation.setParams({sectionName: title})
     }
 
+    accumulateProducts () {
+      let total = 0
+      this.state.products.map((product) => {
+        total += product.quantity
+      })
+      return total
+    }
+
+
     render() {
         return (
             <View style={{flex: 1, flexDirection: 'column'}}>
@@ -156,6 +166,7 @@ class Menu extends Component {
                         </TabBarIOS.Item>
                         <TabBarIOS.Item
                             icon={{uri: cartIcon, scale: 2}}
+                            badge={this.accumulateProducts()}
                             title="Cart"
                             selected={this.state.selectedTab === 'Cart'}
                             onPress={() => this.updateTabAndTitle('Cart')}>

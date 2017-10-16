@@ -17,9 +17,7 @@ module.exports = StyleSheet.create({
     borderColor: 'grey'
   },
   PizzaNameDescriptionContainer: {
-    flex: 2,
-    borderBottomWidth: 0.5,
-    borderColor: 'grey'
+    flex: 2
   },
   PizzaName: {
     flex: 2,
@@ -38,8 +36,6 @@ module.exports = StyleSheet.create({
   },
   PizzaPriceContainer: {
     flex: 1,
-    borderBottomWidth: 0.5,
-    borderColor: 'grey',
     justifyContent: 'center',
     alignSelf: 'center'
   },
@@ -55,8 +51,6 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    borderBottomWidth: 0.5,
-    borderColor: 'grey'
   },
   PizzaAddButton: {
     margin: 5,
