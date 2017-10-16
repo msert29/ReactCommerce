@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TabBarIOS,
-    TouchableOpacity
+    TouchableOpacity,
+    Modal
 } from 'react-native';
 import Header from "../../layout/Header/Header";
 import Pizza from '../Pizza/Pizza';
@@ -35,6 +36,7 @@ class Menu extends Component {
             deliveryEnabled: false,
             collectionEnabled: false,
             totalPrice: 0,
+            showModal: false
         };
     }
 
@@ -118,9 +120,17 @@ class Menu extends Component {
                             onPress={() => this.updateTabAndTitle('Kebabs')}>
                             {
                                 <View>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Dressings')}>
+                                    <TouchableOpacity onPress={() => this.setState({showModal: true})}>
                                       <Text>Kebabs</Text>
                                     </TouchableOpacity>
+                                    <Modal
+                                      animationType="slide"
+                                      transparent={false}
+                                      visible={this.state.showModal}
+                                      onRequestClose={() => {alert("Modal has been closed.")}}
+                                    >
+                                      <Dressings />
+                                    </Modal>
                                 </View>
                             }
                         </TabBarIOS.Item>
