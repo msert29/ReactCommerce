@@ -15,7 +15,12 @@ export default class Burger extends Component {
   }
 
   addToCart (product) {
-    this.props.navigation.navigate('Dressings', {navigation: this.props.navigation})
+    this.props.navigation.navigate('Dressings', {
+      navigation: this.props.navigation,
+      displayBread: false,
+      displayCheese: true,
+      product: product
+    })
     this.props.addItem(product)
   }
 
