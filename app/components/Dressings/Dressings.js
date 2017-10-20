@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Text } from 'react-native'
 import Header from '../../layout/Header/Header'
-import {Container, Content, Form, Input, Label, Picker, Item, Card, CardItem, Body, Left, Button } from 'native-base'
+import {Container, Content, Form, Input, Label, Picker, Item, Card, CardItem, Body, Left, Button, Footer, FooterTab } from 'native-base'
 const PickerItem = Picker.Item
 
 class Dressings extends Component {
@@ -16,9 +16,10 @@ class Dressings extends Component {
     this.state = {
       salad: 'No Salad',
       sauce: 'No Sauce',
-      bread: 'Pitta Bread',
-      cheese: 'No Cheese',
+      bread: undefined,
+      cheese: undefined,
     }
+    this.addToCart = this.addToCart.bind(this)
   }
 
   setSalad (selectedSalad) {
@@ -68,10 +69,10 @@ class Dressings extends Component {
         <CardItem>
           <Body>
             <Item fixedLabel>
-              <Label>Cheese option</Label>
+              <Label>Cheese Choice</Label>
               <Picker
                 mode="dropdown"
-                placeholder="Select Cheese"
+                placeholder="Cheese Choice"
                 selectedValue={this.state.cheese}
                 onValueChange={this.setCheese.bind(this)}
               >
@@ -83,6 +84,24 @@ class Dressings extends Component {
         </CardItem>
       )
     }
+  }
+
+  addToCart () {
+    console.log('burdayiz')
+    let product = this.props.navigation.state.params.product
+    product.salad = this.state.salad
+    product.sauce = this.state.sauce
+
+    if (this.props.navigation.state.params.displayBread) {
+      product.bread = this.state.bread
+    }
+    if (this.props.navigation.state.params.displayCheese) {
+      product.cheese = this.state.cheese
+      if (product.cheese === 'Cheese')
+        product.price += 0.20
+    }
+    this.props.navigation.state.params.addToCart(product)
+    this.props.navigation.goBack()
   }
 
 
@@ -145,9 +164,22 @@ class Dressings extends Component {
             </Card>
           </Form>
         </Content>
-        <Button full success>
-          <Text>Add to Cart</Text>
-        </Button>
+        <Footer>
+          <FooterTab>
+          <Button full danger>
+            <Text style={{color:"white", fontSize: 20, fontWeight: '300' }}>
+              Cancel
+            </Text>
+          </Button>
+          </FooterTab>
+          <FooterTab>
+          <Button full success onPress={() => this.addToCart()}>
+            <Text style={{ color:"white", fontSize: 20, fontWeight: '300' }}>
+              Add to Cart
+            </Text>
+          </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     )
   }

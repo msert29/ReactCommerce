@@ -14,13 +14,18 @@ export default class Burger extends Component {
     this.addToCart = this.addToCart.bind(this)
   }
 
-  addToCart (product) {
+  getProductOptions(product) {
     this.props.navigation.navigate('Dressings', {
       navigation: this.props.navigation,
       displayBread: false,
       displayCheese: true,
-      product: product
+      product: product,
+      addToCart: this.addToCart
     })
+  }
+
+  addToCart (product) {
+    console.log(product)
     this.props.addItem(product)
   }
 
@@ -36,7 +41,7 @@ export default class Burger extends Component {
             <Text style={styles.BurgerPrice}>from £{rowData.price.toFixed(2)}</Text>
           </View>
           <View style={styles.BurgerAddButtonContainer}>
-            <TouchableOpacity style={styles.BurgerAddButton} onPress={() => { this.addToCart(rowData) }}>
+            <TouchableOpacity style={styles.BurgerAddButton} onPress={() => { this.getProductOptions(rowData) }}>
               <Text style={styles.BurgerAddButtonText}>+</Text>
             </TouchableOpacity>
           </View>
