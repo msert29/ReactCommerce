@@ -49,10 +49,14 @@ class Menu extends Component {
       // Update the total price by quantity * price of the added product
       let totalPrice = this.state.totalPrice + (product.price * product.quantity)
       if (this.state.products.indexOf(product) !== -1) {
-          // TODO: Check if product choices i.e extra toppings or salad sauce options are same and increment then only!
+        // TODO: Check if product choices i.e extra toppings or salad sauce options are same and increment then only!
+        if (this.checkProductChoicePropertiesMatch(product, products[idx])) {
           products[idx].quantity += 1;
-      } else {
+        } else {
           products.push(product);
+        }
+      } else {
+        products.push(product);
       }
 
       // Update the state
@@ -63,6 +67,22 @@ class Menu extends Component {
         collectionEnabled: this.eligibleForCollection(totalPrice)
       })
     }
+
+    checkProductChoicePropertiesMatch(product, matching_product) {
+      if (product.type === 'burger') {
+        return (product.salad === matching_product.salad) && (product.sauce === matching_product.sauce)
+          && (product.cheese === matching_product.cheese)
+      } else if (product.type === 'kebab') {
+        return (product.salad === matching_product.salad) && (product.sauce === matching_product.sauce) &&
+          (product.bread === matching_product.bread)
+      } else if ((product.type === 'pizza') && (product.hasOwnProperty('extra_toppings'))) {
+        return product.extra_toppings.length === matching_product.length;
+      } else {
+        return true
+      }
+    }
+
+
 
     removeItem(product){
       let idx = this.state.products.indexOf(product)
