@@ -50,17 +50,22 @@ export default class Cart extends Component {
   displayCart () {
     return (
       <ListView style={style.CartProductContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
-        <View style={style.CartItem} key={rowID}>
-          <Text>{product.quantity}x</Text>
-          <Text>{product.name.toString()}</Text>
-          <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
-          <TouchableOpacity onPress={() => { this.removeItem(product) }}>
-            <Icon
-              size={15}
-              reverse
-              color="red"
-              name='close' />
-          </TouchableOpacity>
+        <View style={{borderBottomWidth: 0.2}}>
+          <View style={style.CartItem} key={rowID}>
+            <Text>{product.quantity}x</Text>
+            <Text style={{padding: 10}}>{product.name.toString()}</Text>
+            <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
+            <TouchableOpacity onPress={() => { this.removeItem(product) }}>
+              <Icon
+                size={15}
+                reverse
+                color="red"
+                name='close' />
+            </TouchableOpacity>
+          </View>
+          {
+            this.displayProductChoices(product)
+          }
         </View>
       } />
     )
@@ -73,6 +78,36 @@ export default class Cart extends Component {
       </View>
     )
   }
+
+  displayProductChoices (product) {
+    if (product.type === 'burger') {
+      return (
+        <View style={{marginLeft: 90, paddingBottom: 10}}>
+          <Text>-{product.salad.toString()}</Text>
+          <Text>-{product.sauce.toString()}</Text>
+          <Text>-{product.cheese.toString()}</Text>
+        </View>
+      )
+    } else if (product.type === 'kebab') {
+      return (
+        <View style={{marginLeft: 90, paddingBottom: 10}}>
+          <Text>-{product.salad.toString()}</Text>
+          <Text>-{product.sauce.toString()}</Text>
+          <Text>-{product.bread.toString()}</Text>
+        </View>
+      )
+    } else if ((product.type === 'pizza') && (product.extra_toppings)) {
+      return (
+        // TODO: A ListView of all extra toppings should be appended here
+        <ListView style={{marginLeft: 90, paddingBottom: 10}}>
+          <Text>-{product.salad.toString()}</Text>
+        </ListView>
+      )
+    } else {
+      return
+    }
+  }
+
   render () {
     console.log(this.state)
     return (

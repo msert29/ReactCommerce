@@ -49,6 +49,7 @@ class Menu extends Component {
       // Update the total price by quantity * price of the added product
       let totalPrice = this.state.totalPrice + (product.price * product.quantity)
       if (this.state.products.indexOf(product) !== -1) {
+          // TODO: Check if product choices i.e extra toppings or salad sauce options are same and increment then only!
           products[idx].quantity += 1;
       } else {
           products.push(product);
