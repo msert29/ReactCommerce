@@ -29,6 +29,14 @@ export default class Burger extends Component {
     this.props.addItem(product)
   }
 
+  renderPriceAccordingToProduct (price) {
+    if (typeof (price) === 'object') {
+      return price.small.toFixed(2)
+    } else {
+      return price
+    }
+  }
+
   render () {
     return (
       <ListView style={styles.ListViewContainer} dataSource={this.state.dataSource} renderRow={(rowData) =>
@@ -38,7 +46,7 @@ export default class Burger extends Component {
             <Text style={styles.BurgerDescription}>{rowData.description}</Text>
           </View>
           <View style={styles.BurgerPriceContainer}>
-            <Text style={styles.BurgerPrice}>from £{rowData.price.toFixed(2)}</Text>
+            <Text style={styles.BurgerPrice}>from £{this.renderPriceAccordingToProduct(rowData.price)}</Text>
           </View>
           <View style={styles.BurgerAddButtonContainer}>
             <TouchableOpacity style={styles.BurgerAddButton} onPress={() => { this.getProductOptions(rowData) }}>

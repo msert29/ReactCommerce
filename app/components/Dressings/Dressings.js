@@ -18,6 +18,7 @@ class Dressings extends Component {
       sauce: 'No Sauce',
       bread: undefined,
       cheese: undefined,
+      size: undefined,
     }
     this.addToCart = this.addToCart.bind(this)
   }
@@ -36,6 +37,10 @@ class Dressings extends Component {
 
   setCheese (selectedCheese) {
     this.setState({cheese: selectedCheese})
+  }
+
+  setSize (selectedSize) {
+    this.setState({size: selectedSize})
   }
 
   checkAndDisplayBreadSelection () {
@@ -87,7 +92,6 @@ class Dressings extends Component {
   }
 
   addToCart () {
-    console.log('burdayiz')
     let product = this.props.navigation.state.params.product
     product.salad = this.state.salad
     product.sauce = this.state.sauce
@@ -102,6 +106,29 @@ class Dressings extends Component {
     }
     this.props.navigation.state.params.addToCart(product)
     this.props.navigation.goBack()
+  }
+
+  displaySizeOptions (product) {
+    if (this.props.navigation.state.params.displaySize) {
+      return (
+        <CardItem>
+          <Body>
+          <Item fixedLabel>
+            <Label>Size Choice</Label>
+            <Picker
+              mode="dropdown"
+              placeholder="Size Choice"
+              selectedValue={this.state.size}
+              onValueChange={this.setSize.bind(this)}
+            >
+              <Item label={product.size.small} value={product.size.small}/>
+              <Item label={product.size.large} value={product.size.large}/>
+            </Picker>
+          </Item>
+          </Body>
+        </CardItem>
+      )
+    }
   }
 
 
@@ -119,6 +146,9 @@ class Dressings extends Component {
                   }
                 </Text>
               </CardItem>
+              {
+                this.displaySizeOptions(state.params.product)
+              }
               <CardItem>
                 <Item fixedLabel>
                   <Label>Salad Choice</Label>
@@ -155,9 +185,9 @@ class Dressings extends Component {
                   </Picker>
                 </Item>
               </CardItem>
-            {
-                this.checkAndDisplayBreadSelection()
-            }
+              {
+                  this.checkAndDisplayBreadSelection()
+              }
               {
                 this.checkAndDisplayCheeseSelection()
               }

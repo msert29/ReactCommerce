@@ -22,18 +22,15 @@ module.exports = StyleSheet.create({
   },
   BurgerName: {
     flex: 2,
-    fontSize: 20,
+    fontSize: 25,
     paddingLeft: 10,
-    paddingTop: 20,
+    paddingTop: 15,
     justifyContent: 'center',
     alignItems: 'flex-start'
   },
   BurgerDescription: {
-    flex: 2,
-    fontSize: 10,
+    fontSize: 13,
     paddingLeft: 10,
-    paddingTop: 1,
-    alignItems: 'flex-end'
   },
   BurgerPriceContainer: {
     flex: 1,

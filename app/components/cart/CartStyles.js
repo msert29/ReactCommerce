@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-
+import {width} from '../../config/constants'
 // | Qty |      Name    | Price //
 //    2    Small Doner  | 5.50
 module.exports = StyleSheet.create({
@@ -18,7 +18,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-around',
     flex: 2,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: width
   },
   totalContainer: {
     flex: 1

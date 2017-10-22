@@ -50,7 +50,7 @@ module.exports = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   PizzaAddButton: {
     margin: 5,

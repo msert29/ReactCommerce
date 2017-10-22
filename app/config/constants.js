@@ -77,34 +77,29 @@ const constants = {
     {
       'id': 9,
       'type': 'burger',
-      'name': '1/4 Burger',
-      'price': 3.00,
+      'name': 'Burger',
+      'price': {'small': 3.00, 'large': 4.00},
       'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
-    },
-    {
-      'id': 10,
-      'type': 'burger',
-      'name': '1/2 Burger',
-      'price': 4,
-      'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
+      'quantity': 1,
+      'size': {'small': '1/4', 'large': '1/2'}
     },
     {
       'id': 11,
       'type': 'burger',
-      'name': '1/4 Chicken Burger',
-      'price': 3.50,
+      'name': 'Chicken Burger',
+      'price': {'small': 3.40, 'large': 5.00},
       'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
+      'quantity': 1,
+      'size': {'small': '1/4', 'large': '1/2'}
     },
     {
       'id': 12,
       'type': 'burger',
       'name': 'Vegie Burger',
-      'price': 3.60,
-      'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
+      'price': {'small': 3.60, 'large': 5.00},
+      'description': 'Vegie burger with a choice of salad, sauce and cheese.',
+      'quantity': 1,
+      'size': {'small': '1/4', 'large': '1/2'}
     },
     {
       'id': 13,
@@ -112,7 +107,7 @@ const constants = {
       'name': 'Doner Roll',
       'price': 3.80,
       'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
+      'quantity': 1,
     },
     {
       'id': 14,
@@ -120,44 +115,44 @@ const constants = {
       'name': 'Chicken Doner Roll',
       'price': 4.00,
       'description': 'Beef burger with a choice of salad, sauce and cheese.',
-      'quantity': 1
+      'quantity': 1,
     }
   ],
   drinks: [
     {
       'id': 15,
       'name': 'Coca Cola',
-      'options': ['Can', 'Bottle']
+      'size': ['Can', 'Bottle']
     },
     {
       'id': 16,
       'name': 'Orange Tango',
-      'options': ['Can', 'Bottle']
+      'size': ['Can', 'Bottle']
     },
     {
       'id': 17,
       'name': 'Rio',
-      'options': ['Can']
+      'size': ['Can']
     },
     {
       'id': 18,
       'name': 'Cherry Tango',
-      'options': ['Can']
+      'size': ['Can']
     },
     {
       'id': 19,
       'name': 'Apple Tango',
-      'options': ['Can']
+      'size': ['Can']
     },
     {
       'id': 20,
       'name': 'Pepsi',
-      'options': ['Can', 'Bottle']
+      'size': ['Can', 'Bottle']
     },
     {
       'id': 21,
       'name': 'Dr Pepper',
-      'options': ['Can']
+      'size': ['Can']
     }
 
   ],
