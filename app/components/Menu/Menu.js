@@ -82,8 +82,6 @@ class Menu extends Component {
       }
     }
 
-
-
     removeItem(product){
       let idx = this.state.products.indexOf(product)
       let products = this.state.products
