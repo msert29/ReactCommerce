@@ -20,6 +20,8 @@ import {
     pizzaIcon,
     minimumOrderFee
 } from '../../config/constants';
+import { store } from '../../../App'
+import { AddCart, UpdateQuantity } from '../../actions/actions'
 
 class Menu extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -51,13 +53,19 @@ class Menu extends Component {
       if (this.state.products.indexOf(product) !== -1) {
         // TODO: Check if product choices i.e extra toppings or salad sauce options are same and increment then only!
         if (this.checkProductChoicePropertiesMatch(product, products[idx])) {
+          store.dispatch(UpdateQuantity(product, product.quantity += 1))
           products[idx].quantity += 1;
         } else {
+          store.dispatch(AddCart(product))
           products.push(product);
         }
       } else {
+        store.dispatch(AddCart(product))
         products.push(product);
       }
+
+
+      console.log(store.getState());
 
       // Update the state
       this.setState({
@@ -125,6 +133,13 @@ class Menu extends Component {
       return total
     }
 
+
+    updateTotalPrice = () => {
+      var totalPrice = 0
+      state.getState().cart.products.map((product) => {
+          totalPrice += product.price * product.quantity
+      })
+    }
 
     render() {
         return (

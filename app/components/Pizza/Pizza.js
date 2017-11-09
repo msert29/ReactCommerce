@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {View, Text, ListView, TouchableOpacity, Dimensions} from 'react-native'
 import PizzaStyle from './PizzaStyle'
 import {pizzas} from '../../config/constants'
+import {store} from '../../../App'
+import { AddCart } from '../../actions/actions'
 
 export default class Pizza extends Component {
   constructor (props) {

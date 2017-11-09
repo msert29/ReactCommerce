@@ -15,11 +15,11 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 0.2
   },
   CartItem: {
-    justifyContent: 'space-around',
-    flex: 2,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    width: width
+    marginLeft: 5,
+    flex: 4
   },
   totalContainer: {
     flex: 1

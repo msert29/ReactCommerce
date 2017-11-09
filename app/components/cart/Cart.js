@@ -3,7 +3,8 @@ import {Text, View, ListView, TouchableOpacity, Switch } from 'react-native'
 import { Button, FormLabel, FormInput, Icon } from 'react-native-elements'
 import {width} from '../../config/constants'
 import style from './CartStyles'
-
+import { RemoveCart, UpdateQuantity } from '../../actions/actions'
+import {store} from '../../../App'
 export default class Cart extends Component {
   constructor (props) {
     super(props)
@@ -24,7 +25,14 @@ export default class Cart extends Component {
   }
 
   removeItem (product) {
-    this.props.removeItem(product)
+    let index = store.getState().cart.products.indexOf(product)
+    if (product.quantity > 1) {
+      store.dispatch(UpdateQuantity(product, product.quantity -= 1))
+    } else {
+      store.dispatch(RemoveCart(product, index))
+    }
+    // this.props.removeItem(product)
+    console.log(store.getState())
   }
 
   accumulateItems () {
@@ -52,10 +60,10 @@ export default class Cart extends Component {
       <ListView style={style.CartProductContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
         <View style={{borderBottomWidth: 0.2}}>
           <View style={style.CartItem} key={rowID}>
-            <Text>{product.quantity}x</Text>
-            <Text style={{padding: 10}}>{product.name.toString()}</Text>
-            <Text>£{(product.quantity * product.price).toFixed(2)}</Text>
-            <TouchableOpacity onPress={() => { this.removeItem(product) }}>
+            <Text style={{flex: 0.1}}>{product.quantity}x</Text>
+            <Text style={{padding: 10, flex:0.5}}>{product.name.toString()}</Text>
+            <Text style={{flex: 0.2}}>£{(product.quantity * product.price).toFixed(2)}</Text>
+            <TouchableOpacity style={{flex: 0.2}} onPress={() => { this.removeItem(product) }}>
               <Icon
                 size={15}
                 reverse
@@ -82,7 +90,7 @@ export default class Cart extends Component {
   displayProductChoices (product) {
     if (product.type === 'burger') {
       return (
-        <View style={{marginLeft: 90, paddingBottom: 10}}>
+        <View style={{marginLeft: 50, paddingBottom: 10}}>
           <Text>-{product.salad.toString()}</Text>
           <Text>-{product.sauce.toString()}</Text>
           <Text>-{product.cheese.toString()}</Text>
@@ -90,7 +98,7 @@ export default class Cart extends Component {
       )
     } else if (product.type === 'kebab') {
       return (
-        <View style={{marginLeft: 90, paddingBottom: 10}}>
+        <View style={{marginLeft: 50, paddingBottom: 10}}>
           <Text>-{product.salad.toString()}</Text>
           <Text>-{product.sauce.toString()}</Text>
           <Text>-{product.bread.toString()}</Text>

@@ -11,8 +11,6 @@ class Dressings extends Component {
 
   constructor (props) {
     super(props)
-    console.log('here')
-    console.log(this.props)
     this.state = {
       salad: 'No Salad',
       sauce: 'No Sauce',
