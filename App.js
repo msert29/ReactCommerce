@@ -4,19 +4,20 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
-import { Provider, connect } from 'react-redux';
-import { createStore } from 'redux';
-import { addNavigationHelpers, StackNavigator } from 'react-navigation';
+import { Provider, connect } from 'react-redux'
+import { createStore, bindActionCreators } from 'redux'
+import { addNavigationHelpers, StackNavigator } from 'react-navigation'
 import {appReducer} from './app/reducers/reducers'
 import { AppRoutes } from './app/config/Routes'
+import * as actionCreators from './app/actions/actions'
 
 class NavigatorApp extends Component {
   render () {
@@ -35,6 +36,7 @@ const mapStateToProps = (state) => ({
   nav: state.nav
 })
 
+
 export const AppWithNavigationState = connect(mapStateToProps)(NavigatorApp)
 
 export const store = createStore(appReducer)
@@ -48,3 +50,4 @@ export default class App extends Component {
     )
   }
 }
+

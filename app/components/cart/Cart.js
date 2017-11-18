@@ -3,43 +3,40 @@ import {Text, View, ListView, TouchableOpacity, Switch } from 'react-native'
 import { Button, FormLabel, FormInput, Icon } from 'react-native-elements'
 import {width} from '../../config/constants'
 import style from './CartStyles'
-import { RemoveCart, UpdateQuantity } from '../../actions/actions'
-import {store} from '../../../App'
+
+
 export default class Cart extends Component {
   constructor (props) {
     super(props)
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {
-      products: [],
-      dataSource: ds.cloneWithRows(this.props.products),
-      total: 0
+      productsList: this.ds.cloneWithRows(this.props.cart.products)
     }
     this.removeItem = this.removeItem.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.setState({
-      dataSource: ds.cloneWithRows(nextProps.products)
+      productsList: this.ds.cloneWithRows(nextProps.cart.products)
     })
   }
 
+
   removeItem (product) {
-    let index = store.getState().cart.products.indexOf(product)
+    let totalPrice = parseFloat((this.props.cart.totalPrice - product.price).toFixed(2))
+    let index = this.props.cart.products.indexOf(product)
     if (product.quantity > 1) {
-      store.dispatch(UpdateQuantity(product, product.quantity -= 1))
+      this.props.removeSingleExistingItem(index, product, product.quantity -= 1, totalPrice)
     } else {
-      store.dispatch(RemoveCart(product, index))
+      this.props.removeCart(index, product, totalPrice)
     }
-    // this.props.removeItem(product)
-    console.log(store.getState())
   }
 
   accumulateItems () {
     let totalItems = 0
     let totalPrice = 0
-    if (this.props.products.length > 0) {
-      this.props.products.map(product => {
+    if (this.props.cart.products.length > 0) {
+      this.props.cart.products.map(product => {
         totalPrice += (product.quantity * product.price)
         totalItems += product.quantity
       })
@@ -57,11 +54,11 @@ export default class Cart extends Component {
 
   displayCart () {
     return (
-      <ListView style={style.CartProductContainer} dataSource={this.state.dataSource} renderRow={(product, rowID) =>
+      <ListView style={style.CartProductContainer} dataSource={this.state.productsList} renderRow={(product, rowID) =>
         <View style={{borderBottomWidth: 0.2}}>
           <View style={style.CartItem} key={rowID}>
             <Text style={{flex: 0.1}}>{product.quantity}x</Text>
-            <Text style={{padding: 10, flex:0.5}}>{product.name.toString()}</Text>
+            <Text style={{padding: 10, flex: 0.5}}>{product.name.toString()}</Text>
             <Text style={{flex: 0.2}}>£{(product.quantity * product.price).toFixed(2)}</Text>
             <TouchableOpacity style={{flex: 0.2}} onPress={() => { this.removeItem(product) }}>
               <Icon
@@ -112,25 +109,24 @@ export default class Cart extends Component {
         </ListView>
       )
     } else {
-      return
+
     }
   }
 
   render () {
-    console.log(this.state)
     return (
       <View style={style.CartContainer}>
         <View style={{flex: 3, padding: 10}}>
-          {this.renderIf(this.props.products.length > 0, this.displayCart())}
-          {this.renderIf(this.props.products.length < 1, Cart.displayEmptyCart())}
+          {this.renderIf(this.props.cart.products.length > 0, this.displayCart())}
+          {this.renderIf(this.props.cart.products.length < 1, Cart.displayEmptyCart())}
         </View>
         <View style={{flex: 1.5, alignItems: 'stretch', justifyContent: 'center', flexDirection: 'column', marginBottom: 5, marginTop: 20}}>
           <View style={{flexDirection: 'column', flex: 0.5}}>
             <Text style={{alignSelf: 'flex-end', borderBottomWidth: 0.5, borderBottomColor: 'black', marginRight: 15, padding: 5}}>
-                      Total Items {this.accumulateItems()['totalItems']}
+              Total Items {this.accumulateItems()['totalItems']}
             </Text>
             <Text style={{alignSelf: 'flex-end', borderBottomWidth: 0.5, borderBottomColor: 'black', marginRight: 15, padding: 5}}>
-                      Total £{this.accumulateItems()['totalPrice'].toFixed(2)}
+              Total £{this.accumulateItems()['totalPrice'].toFixed(2)}
             </Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>

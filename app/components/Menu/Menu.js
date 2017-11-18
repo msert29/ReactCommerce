@@ -7,8 +7,9 @@ import {
     Modal
 } from 'react-native';
 import Header from "../../layout/Header/Header";
-import Pizza from '../Pizza/Pizza';
+import PizzaContainer from '../Pizza/PizzaContainer';
 import Burger from '../Burger/Burger';
+import CartContainer from  '../cart/CartContainer';
 import Cart from  '../cart/Cart';
 import Dressings from './../Dressings/Dressings'
 
@@ -154,7 +155,7 @@ class Menu extends Component {
                             selected={this.state.selectedTab === 'Pizzas'}
                             onPress={() => this.updateTabAndTitle('Pizzas')}>
                             {
-                              <Pizza addItem={this.addItem} navigation={this.props.navigation} />
+                              <PizzaContainer />
                             }
                         </TabBarIOS.Item>
                         <TabBarIOS.Item
@@ -205,11 +206,11 @@ class Menu extends Component {
                             selected={this.state.selectedTab === 'Cart'}
                             onPress={() => this.updateTabAndTitle('Cart')}>
                             {
-                                <Cart
-                                  products={this.state.products} removeItem={this.removeItem}
-                                  deliveryEnabled={this.state.deliveryEnabled}
-                                  collectionEnabled={this.state.collectionEnabled}
-                                  navigation={this.props.navigation}
+                                <CartContainer
+                                  // products={this.state.products} removeItem={this.removeItem}
+                                  // deliveryEnabled={this.state.deliveryEnabled}
+                                  // collectionEnabled={this.state.collectionEnabled}
+                                  // navigation={this.props.navigation}
                                 />
                             }
                         </TabBarIOS.Item>

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import { AppRoutes } from '../config/Routes'
-import { AddToCart, RemoveItemCart, UpdateItemQuantity } from '../config/ActionTypes'
+import { AddToCart, RemoveItemCart, AddSingleItemToCart, RemoveSingleItemFromCart } from '../config/ActionTypes'
 
 const initialState = {
   nav: AppRoutes.router.getStateForAction(AppRoutes.router.getActionForPathAndParams('Home')),
   products: [],
-  totalPrice: 0
+  totalPrice: 0,
+  deliveryEnabled: false,
+  collectionEnabled: false
 }
 
 const navReducer = (state = initialState.nav, action) => {
@@ -19,20 +21,20 @@ function CartReducer (state = initialState, action) {
       return {
         ...state,
         products: [...state.products, action.product],
-        totalPrice: state.totalPrice += (action.price * action.quantity)
+        totalPrice: action.totalPrice
       }
 
     case RemoveItemCart:
-
       return {
         ...state,
         products: [
           ...state.products.slice(0, action.index),
           ...state.products.slice(action.index + 1)
-        ]
+        ],
+        totalPrice: action.totalPrice
       }
 
-    case UpdateItemQuantity:
+    case AddSingleItemToCart:
       return {
         ...state,
         products: state.products.map((product, index) => {
@@ -42,7 +44,22 @@ function CartReducer (state = initialState, action) {
             })
           }
           return product
-        })
+        }),
+        totalPrice: action.totalPrice
+      }
+
+    case RemoveSingleItemFromCart:
+      return {
+        ...state,
+        products: state.products.map((product, index) => {
+          if (index === action.index) {
+            return Object.assign({}, product, {
+              quantity: action.quantity
+            })
+          }
+          return product
+        }),
+        totalPrice: action.totalPrice
       }
 
     default:

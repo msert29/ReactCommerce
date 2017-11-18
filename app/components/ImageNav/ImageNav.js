@@ -3,7 +3,7 @@ import {View, Text, Image, Dimensions, TouchableOpacity, ImageBackground} from '
 const ImageNavStyle = require('./ImageNavStyles');
 import Header from "../../layout/Header/Header";
 const width = Dimensions.get('window').width;
-import {store} from '../../../App'
+import { connect } from 'react-redux'
 
 class ImageNav extends Component {
     static navigationOptions = {
@@ -11,8 +11,6 @@ class ImageNav extends Component {
     };
 
     render() {
-      console.log(store)
-      console.log(store.getState())
         return (
             <View
                 style={{
@@ -51,4 +49,9 @@ class ImageNav extends Component {
     }
 }
 
-module.exports = ImageNav;
+mapStateToProps = (state) => ({
+  nav: state.nav
+})
+
+module.exports = connect(mapStateToProps)(ImageNav)
+
