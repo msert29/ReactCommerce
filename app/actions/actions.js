@@ -1,38 +1,40 @@
-import {AddToCart, RemoveItemCart, AddSingleItemToCart, RemoveSingleItemFromCart} from '../config/ActionTypes'
+import {
+  AddToCart,
+  RemoveItemCart,
+  AddSingleItemToCart,
+  RemoveSingleItemFromCart
+} from "../config/ActionTypes";
 
-export function AddCart (product, totalPrice) {
+export function AddCart(product) {
   return {
     type: AddToCart,
     product,
-    totalPrice
-  }
+  };
 }
 
-export function RemoveCart (index, product, totalPrice) {
+export function RemoveCart(index, product) {
   return {
     type: RemoveItemCart,
     index,
     product,
-    totalPrice
-  }
+  };
 }
 
-export function AddSingleItemCart (index, product, quantity, totalPrice) {
+export function AddSingleItemCart(index, product, quantity) {
   return {
     type: AddSingleItemToCart,
     index,
     product,
     quantity,
-    totalPrice
-  }
+  };
 }
 
-export function RemoveSingleItemCart (index, product, quantity, totalPrice) {
+export function RemoveSingleItemCart(index, product, quantity) {
   return {
     type: RemoveSingleItemFromCart,
     index,
     product,
     quantity,
-    totalPrice
-  }
+  };
 }
+
