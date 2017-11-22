@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {getTotalPrice, getTotalItemCount, checkDeliveryEnabled, checkCollectionEnabled} from '../../config/utils'
-
+import {
+  totalItemCountSelector,
+  totalPriceSelector,
+  deliverySelector,
+  collectionSelector
+} from '../../config/selectors';
 import Cart from './Cart';
 import { RemoveCart, RemoveSingleItemCart } from '../../actions/actions';
 
@@ -14,6 +18,8 @@ class CartContainer extends Component {
         removeSingleExistingItem={this.props.RemoveSingleItemCart}
         deliveryEnabled={this.props.deliveryEnabled}
         collectionEnabled={this.props.collectionEnabled}
+        totalPrice={this.props.totalPrice}
+        totalItemsInCart={this.props.totalItems}
       />
     );
   }
@@ -21,11 +27,11 @@ class CartContainer extends Component {
 
 const mapStateToProps = state => ({
   nav: state.nav,
-  products: state.cart.products,
-  totalPrice: getTotalPrice(state.cart.products),
-  totalProducts: getTotalItemCount(state.cart.products),
-  deliveryEnabled: checkDeliveryEnabled(state.cart.products),
-  collectionEnabled: checkCollectionEnabled(state.cart.products),
+  products: state.products.products,
+  totalPrice: totalPriceSelector(state),
+  totalItems: totalItemCountSelector(state),
+  deliveryEnabled: deliverySelector(state),
+  collectionEnabled: collectionSelector(state),
 });
 
 export default connect(mapStateToProps, {

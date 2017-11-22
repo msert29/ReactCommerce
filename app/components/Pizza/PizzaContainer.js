@@ -3,13 +3,14 @@ import { ListView } from "react-native";
 import { connect } from "react-redux";
 import { pizzas } from "../../config/constants";
 import Pizza from "./Pizza";
-import { AddCart, AddSingleItemCart } from "../../actions/actions";
+import { AddCart, UpdateExistingItemQuantityCart } from "../../actions/actions";
 import {
-  getTotalPrice,
-  getTotalItemCount,
-  checkCollectionEnabled,
-  checkDeliveryEnabled
-} from "../../config/utils";
+  totalItemCountSelector,
+  totalPriceSelector,
+  deliverySelector,
+  collectionSelector
+} from '../../config/selectors';
+
 class PizzaContainer extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,7 @@ class PizzaContainer extends Component {
       <Pizza
         pizzaList={this.state.pizzaList}
         addToCart={this.props.addToCart}
-        addExistingItem={this.props.addSingleItem}
+        incrementExistingItemQuantity={this.props.incrementExistingItemQuantity}
         products={this.props.products}
       />
     );
@@ -36,14 +37,14 @@ class PizzaContainer extends Component {
 
 const mapStateToProps = state => ({
   nav: state.nav,
-  products: state.cart.products,
-  totalPrice: getTotalPrice(state.cart.products),
-  totalProducts: getTotalItemCount(state.cart.products),
-  deliveryEnabled: checkDeliveryEnabled(state.cart.products),
-  collectionEnabled: checkCollectionEnabled(state.cart.products),
+  products: state.products.products,
+  totalPrice: totalPriceSelector(state),
+  totalProducts: totalItemCountSelector(state),
+  deliveryEnabled: deliverySelector(state),
+  collectionEnabled: collectionSelector(state),
 });
 
-module.exports = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   addToCart: AddCart,
-  addSingleItem: AddSingleItemCart
+  incrementExistingItemQuantity: UpdateExistingItemQuantityCart
 })(PizzaContainer);

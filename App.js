@@ -13,6 +13,8 @@ import { addNavigationHelpers, StackNavigator } from 'react-navigation';
 import { appReducer } from './app/reducers/reducers';
 import { AppRoutes } from './app/config/Routes';
 import * as actionCreators from './app/actions/actions';
+import devToolsEnhancer from 'remote-redux-devtools';
+
 
 class NavigatorApp extends Component {
   render() {
@@ -33,7 +35,7 @@ const mapStateToProps = state => ({
 
 export const AppWithNavigationState = connect(mapStateToProps)(NavigatorApp);
 
-export const store = createStore(appReducer);
+export const store = createStore(appReducer, devToolsEnhancer());
 
 export default class App extends Component {
   render() {

@@ -1,151 +1,29 @@
-import React, { Component } from 'react';
-import { View, Text, TabBarIOS, TouchableOpacity, Modal } from 'react-native';
-import Header from '../../layout/Header/Header';
-import PizzaContainer from '../Pizza/PizzaContainer';
-import Burger from '../Burger/Burger';
-import CartContainer from '../cart/CartContainer';
-import Cart from '../cart/Cart';
-import Dressings from './../Dressings/Dressings';
+import React, { Component } from "react";
+import { View, Text, TabBarIOS, TouchableOpacity } from "react-native";
+import PizzaContainer from "../Pizza/PizzaContainer";
+import Burger from "../Burger/Burger";
+import CartContainer from "../cart/CartContainer";
 
 import {
   mealIcon,
   cartIcon,
   kebabIcon,
   burgerIcon,
-  pizzaIcon,
-  minimumOrderFee,
-} from '../../config/constants';
-import { store } from '../../../App';
-import { AddCart, UpdateQuantity } from '../../actions/actions';
+  pizzaIcon
+} from "../../config/constants";
 
-class Menu extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header pageTitle={navigation.state.params.sectionName} />,
-  });
-
-  constructor(props) {
-    super(props);
-    this.addItem = this.addItem.bind(this);
-    this.removeItem = this.removeItem.bind(this);
-
-    this.state = {
-      products: [],
-      selectedTab: 'Pizzas',
-      deliveryEnabled: false,
-      collectionEnabled: false,
-      totalPrice: 0,
-      showModal: false,
-    };
-  }
-
-  addItem(product) {
-    // Get current list of products
-    let products = this.state.products;
-    let idx = this.state.products.indexOf(product);
-
-    // Update the total price by quantity * price of the added product
-    let totalPrice = this.state.totalPrice + product.price * product.quantity;
-    if (this.state.products.indexOf(product) !== -1) {
-      // TODO: Check if product choices i.e extra toppings or salad sauce options are same and increment then only!
-      if (this.checkProductChoicePropertiesMatch(product, products[idx])) {
-        store.dispatch(UpdateQuantity(product, (product.quantity += 1)));
-        products[idx].quantity += 1;
-      } else {
-        store.dispatch(AddCart(product));
-        products.push(product);
-      }
-    } else {
-      store.dispatch(AddCart(product));
-      products.push(product);
-    }
-
-    console.log(store.getState());
-
-    // Update the state
-    this.setState({
-      products: products,
-      totalPrice: totalPrice,
-      deliveryEnabled: this.eligibleForDelivery(totalPrice),
-      collectionEnabled: this.eligibleForCollection(totalPrice),
-    });
-  }
-
-  checkProductChoicePropertiesMatch(product, matching_product) {
-    if (product.type === 'burger') {
-      return (
-        product.salad === matching_product.salad &&
-        product.sauce === matching_product.sauce &&
-        product.cheese === matching_product.cheese
-      );
-    } else if (product.type === 'kebab') {
-      return (
-        product.salad === matching_product.salad &&
-        product.sauce === matching_product.sauce &&
-        product.bread === matching_product.bread
-      );
-    } else if (
-      product.type === 'pizza' &&
-      product.hasOwnProperty('extra_toppings')
-    ) {
-      return product.extra_toppings.length === matching_product.length;
-    } else {
-      return true;
-    }
-  }
-
-  removeItem(product) {
-    let idx = this.state.products.indexOf(product);
-    let products = this.state.products;
-    let totalPrice = 0;
-
-    // Remove single item if multiple items added, else remove the whole item from cart
-    if (this.state.products[idx].quantity > 1) {
-      products[idx].quantity -= 1;
-      totalPrice = this.state.totalPrice - product.price * product.quantity;
-    } else {
-      products.splice(idx, 1);
-      totalPrice = this.state.totalPrice - product.price;
-    }
-    this.setState({
-      products: products,
-      totalPrice: totalPrice,
-      deliveryEnabled: this.eligibleForDelivery(totalPrice),
-      collectionEnabled: this.eligibleForCollection(totalPrice),
-    });
-  }
-
-  eligibleForDelivery(totalPrice) {
-    return totalPrice >= minimumOrderFee;
-  }
-
-  eligibleForCollection(totalPrice) {
-    // At least have one item in the basket to order a collection
-    return totalPrice > 1;
-  }
-
-  updateTabAndTitle(title) {
-    this.setState({ selectedTab: title });
-    this.props.navigation.setParams({ sectionName: title });
-  }
-
-   accumulateProducts() {
-    let total = 0;
-    this.state.products.map(product => {
-      total += product.quantity;
-    });
-    return total;
-  }
-
-  updateTotalPrice = () => {
-    var totalPrice = 0;
-    state.getState().cart.products.map(product => {
-      totalPrice += product.price * product.quantity;
-    });
+export default class Menu extends Component {
+  state = {
+    selectedTab: "Pizzas"
   };
+
+  changeTab(selectedTab) {
+    this.setState({ selectedTab });
+  }
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'column' }}>
+      <View style={{ flex: 1, flexDirection: "column" }}>
         <TabBarIOS
           unselectedTintColor="grey"
           tintColor="#05A5D1"
@@ -154,16 +32,16 @@ class Menu extends Component {
           <TabBarIOS.Item
             icon={{ uri: pizzaIcon, scale: 2 }}
             title="Pizzas"
-            selected={this.state.selectedTab === 'Pizzas'}
-            onPress={() => this.updateTabAndTitle('Pizzas')}
+            selected={this.state.selectedTab === "Pizzas"}
+            onPress={() => this.changeTab("Pizzas")}
           >
-            {<PizzaContainer />}
+            <PizzaContainer />
           </TabBarIOS.Item>
           <TabBarIOS.Item
-            title="Kebabs"
             icon={{ uri: kebabIcon, scale: 2 }}
-            selected={this.state.selectedTab === 'Kebabs'}
-            onPress={() => this.updateTabAndTitle('Kebabs')}
+            title="Kebabs"
+            selected={this.state.selectedTab === "Kebabs"}
+            onPress={() => this.changeTab("Kebabs")}
           >
             {
               <View>
@@ -172,37 +50,22 @@ class Menu extends Component {
                 >
                   <Text>Kebabs</Text>
                 </TouchableOpacity>
-                <Modal
-                  animationType="slide"
-                  transparent={false}
-                  visible={this.state.showModal}
-                  onRequestClose={() => {
-                    alert('Modal has been closed.');
-                  }}
-                >
-                  <Dressings />
-                </Modal>
               </View>
             }
           </TabBarIOS.Item>
           <TabBarIOS.Item
             icon={{ uri: burgerIcon, scale: 2 }}
             title="Burgers"
-            selected={this.state.selectedTab === 'Burgers'}
-            onPress={() => this.updateTabAndTitle('Burgers')}
+            selected={this.state.selectedTab === "Burgers"}
+            onPress={() => this.changeTab("Burgers")}
           >
-            {
-              <Burger
-                addItem={this.addItem}
-                navigation={this.props.navigation}
-              />
-            }
+            <Burger />
           </TabBarIOS.Item>
           <TabBarIOS.Item
-            title="Meals"
             icon={{ uri: mealIcon, scale: 2 }}
-            selected={this.state.selectedTab === 'Meals'}
-            onPress={() => this.updateTabAndTitle('Meals')}
+            selected={this.state.selectedTab === "Meals"}
+            onPress={() => this.changeTab("Meals")}
+            title="Meals"
           >
             {
               <View>
@@ -212,19 +75,12 @@ class Menu extends Component {
           </TabBarIOS.Item>
           <TabBarIOS.Item
             icon={{ uri: cartIcon, scale: 2 }}
-            badge={this.accumulateProducts()}
             title="Cart"
-            selected={this.state.selectedTab === 'Cart'}
-            onPress={() => this.updateTabAndTitle('Cart')}
+            selected={this.state.selectedTab === "Cart"}
+            onPress={() => this.changeTab("Cart")}
+            badge={this.props.totalItems}
           >
-            {
-              <CartContainer
-              // products={this.state.products} removeItem={this.removeItem}
-              // deliveryEnabled={this.state.deliveryEnabled}
-              // collectionEnabled={this.state.collectionEnabled}
-              // navigation={this.props.navigation}
-              />
-            }
+            <CartContainer />
           </TabBarIOS.Item>
         </TabBarIOS>
       </View>

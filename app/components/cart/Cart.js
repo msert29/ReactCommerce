@@ -1,56 +1,44 @@
-import React, { Component } from 'react';
-import { Text, View, ListView, TouchableOpacity, Switch } from 'react-native';
-import { Button, FormLabel, FormInput, Icon } from 'react-native-elements';
-import { width } from '../../config/constants';
-import style from './CartStyles';
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import { Text, View, ListView, TouchableOpacity } from "react-native";
+import { Button, FormLabel, FormInput, Icon } from "react-native-elements";
+import { width } from "../../config/constants";
+import DeliveryButton from "../Buttons/DeliveryButton";
+import CollectionButton from "../Buttons/CollectionButton";
+
+import style from "./CartStyles";
+
+const EmptyCart = () => (
+  <View style={style.emptyCart}>
+    <Text>Please add items in order to proceed!</Text>
+  </View>
+);
 
 export default class Cart extends Component {
-
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       productsList: this.ds.cloneWithRows(this.props.products)
     };
-    this.removeItem = this.removeItem.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      productsList: this.ds.cloneWithRows(nextProps.products),
+      productsList: this.ds.cloneWithRows(nextProps.products)
     });
   }
 
-  removeItem(product) {
+  removeItem = (product) => {
     let index = this.props.products.indexOf(product);
     if (product.quantity > 1) {
       this.props.removeSingleExistingItem(
         index,
         product,
-        (product.quantity -= 1),
+        (product.quantity -= 1)
       );
     } else {
       this.props.removeCart(index, product);
-    }
-  }
-
-  accumulateItems() {
-    let totalItems = 0;
-    let totalPrice = 0;
-    if (this.props.products.length > 0) {
-      this.props.products.map(product => {
-        totalPrice += product.quantity * product.price;
-        totalItems += product.quantity;
-      });
-    }
-    return { totalPrice: totalPrice, totalItems: totalItems };
-  }
-
-  renderIf(condition, content) {
-    if (condition) {
-      return content;
-    } else {
-      return null;
     }
   }
 
@@ -85,16 +73,8 @@ export default class Cart extends Component {
     );
   }
 
-  static displayEmptyCart() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Please add items in order to proceed!</Text>
-      </View>
-    );
-  }
-
   displayProductChoices(product) {
-    if (product.type === 'burger') {
+    if (product.type === "burger") {
       return (
         <View style={{ marginLeft: 50, paddingBottom: 10 }}>
           <Text>-{product.salad.toString()}</Text>
@@ -102,7 +82,7 @@ export default class Cart extends Component {
           <Text>-{product.cheese.toString()}</Text>
         </View>
       );
-    } else if (product.type === 'kebab') {
+    } else if (product.type === "kebab") {
       return (
         <View style={{ marginLeft: 50, paddingBottom: 10 }}>
           <Text>-{product.salad.toString()}</Text>
@@ -110,7 +90,7 @@ export default class Cart extends Component {
           <Text>-{product.bread.toString()}</Text>
         </View>
       );
-    } else if (product.type === 'pizza' && product.extra_toppings) {
+    } else if (product.type === "pizza" && product.extra_toppings) {
       return (
         // TODO: A ListView of all extra toppings should be appended here
         <ListView style={{ marginLeft: 90, paddingBottom: 10 }}>
@@ -125,71 +105,20 @@ export default class Cart extends Component {
     return (
       <View style={style.CartContainer}>
         <View style={{ flex: 3, padding: 10 }}>
-          {this.renderIf(
-            this.props.products.length > 0,
-            this.displayCart(),
-          )}
-          {this.renderIf(
-            this.props.products.length < 1,
-            Cart.displayEmptyCart(),
-          )}
+          {this.props.products.length > 0 ? this.displayCart() : <EmptyCart />}
         </View>
-        <View
-          style={{
-            flex: 1.5,
-            alignItems: 'stretch',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            marginBottom: 5,
-            marginTop: 20,
-          }}
-        >
-          <View style={{ flexDirection: 'column', flex: 0.5 }}>
-            <Text
-              style={{
-                alignSelf: 'flex-end',
-                borderBottomWidth: 0.5,
-                borderBottomColor: 'black',
-                marginRight: 15,
-                padding: 5,
-              }}
-            >
-              Total Items {this.accumulateItems()['totalItems']}
+        <View style={style.cartSummaryContainer}>
+          <View style={style.accumulatorContainer}>
+            <Text style={style.totalItems}>
+              Total Items {this.props.totalItemsInCart}
             </Text>
-            <Text
-              style={{
-                alignSelf: 'flex-end',
-                borderBottomWidth: 0.5,
-                borderBottomColor: 'black',
-                marginRight: 15,
-                padding: 5,
-              }}
-            >
-              Total £{this.accumulateItems()['totalPrice'].toFixed(2)}
+            <Text style={style.totalPrice}>
+              Total £{this.props.totalPrice.toFixed(2)}
             </Text>
           </View>
-          <View
-            style={{ flex: 1, flexDirection: 'row', alignItems: 'stretch' }}
-          >
-            <Button
-              raised
-              large
-              backgroundColor="green"
-              disabled={!this.props.collectionEnabled}
-              icon={{ name: 'home' }}
-              title="Collection"
-              buttonStyle={{ width: width / 2 - 30 }}
-            />
-            <Button
-              raised
-              large
-              backgroundColor="#C71585"
-              textStyle={{ color: 'white' }}
-              disabled={!this.props.deliveryEnabled}
-              icon={{ name: 'motorcycle' }}
-              title="Delivery"
-              buttonStyle={{ width: width / 2 - 30 }}
-            />
+          <View style={style.cartSummaryButtonContainer}>
+            <CollectionButton eligable={this.props.collectionEnabled} />
+            <DeliveryButton eligable={this.props.deliveryEnabled} />
           </View>
         </View>
       </View>

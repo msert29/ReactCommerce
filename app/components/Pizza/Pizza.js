@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ListView, TouchableOpacity } from 'react-native';
 import PizzaStyle from './PizzaStyle';
-import {getTotalItemCount} from '../../config/utils';
+
 
 export default class Pizza extends Component {
   addRequested = product => {
@@ -16,9 +16,9 @@ export default class Pizza extends Component {
     });
 
     if (productExists) {
-      this.props.addExistingItem(productIndex, product, (product.quantity += 1));
+      this.props.incrementExistingItemQuantity(productIndex, product, (product.quantity += 1));
     } else {
-      this.props.addToCart(product,);
+      this.props.addToCart(product);
     }
   };
 

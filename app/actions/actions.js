@@ -1,7 +1,7 @@
 import {
   AddToCart,
   RemoveItemCart,
-  AddSingleItemToCart,
+  UpdateExistingItemQuantity,
   RemoveSingleItemFromCart
 } from "../config/ActionTypes";
 
@@ -20,9 +20,9 @@ export function RemoveCart(index, product) {
   };
 }
 
-export function AddSingleItemCart(index, product, quantity) {
+export function UpdateExistingItemQuantityCart(index, product, quantity) {
   return {
-    type: AddSingleItemToCart,
+    type: UpdateExistingItemQuantity,
     index,
     product,
     quantity,
